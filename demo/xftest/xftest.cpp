@@ -16,6 +16,7 @@ int main(int argc, char* argv[])
 
 void test_RSA()
 {
+	// Blog: http://blog.csdn.net/fengbingchun/article/details/43638013
 	//string strKey[2] = {};//[0]:public key; [1]:private key 
 	//GenerateRSAKey(strKey);
 	//cout<<"public key:"<<endl<<strKey[0]<<endl;
@@ -34,6 +35,7 @@ void test_RSA()
 
 void test_MD5()
 {
+	// Blog: http://blog.csdn.net/fengbingchun/article/details/42978603
 	string strSrc[7] = {"", "a", "abc", "message digest", "abcdefghijklmnopqrstuvwxyz",
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
 		"12345678901234567890123456789012345678901234567890123456789012345678901234567890"};
@@ -57,6 +59,7 @@ void test_MD5()
 
 void test_DES()
 {
+	// Blog: http://blog.csdn.net/fengbingchun/article/details/42611875
 	string cleartext = "中国北京12345$abcde%ABCDE@！！！!";
 	string ciphertext = "";
 	string key = "beijingchina1234567890ABCDEFGH!!!";
@@ -79,6 +82,7 @@ void test_DES()
 
 void test_RC4()
 {
+	// Blog: http://blog.csdn.net/fengbingchun/article/details/42929883
 	string cleartext = "中国北京12345$abcde%ABCDE@！！！";
 	string ciphertext = "";
 	string key = "beijingchina1234567890ABCDEFGH!!!";
