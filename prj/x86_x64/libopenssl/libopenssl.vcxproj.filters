@@ -2144,9 +2144,6 @@
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md4\md4_one.c">
       <Filter>Source Files\openssl\crypto\md4</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md4\md4s.cpp">
-      <Filter>Source Files\openssl\crypto\md4</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md5\md5.c">
       <Filter>Source Files\openssl\crypto\md5</Filter>
     </ClCompile>
@@ -2154,9 +2151,6 @@
       <Filter>Source Files\openssl\crypto\md5</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md5\md5_one.c">
-      <Filter>Source Files\openssl\crypto\md5</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md5\md5s.cpp">
       <Filter>Source Files\openssl\crypto\md5</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\mdc2\mdc2_one.c">
@@ -2687,9 +2681,6 @@
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc4\rc4_utl.c">
       <Filter>Source Files\openssl\crypto\rc4</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc4\rc4s.cpp">
-      <Filter>Source Files\openssl\crypto\rc4</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc5\rc5_ecb.c">
       <Filter>Source Files\openssl\crypto\rc5</Filter>
     </ClCompile>
@@ -2703,9 +2694,6 @@
       <Filter>Source Files\openssl\crypto\rc5</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc5\rc5ofb64.c">
-      <Filter>Source Files\openssl\crypto\rc5</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc5\rc5s.cpp">
       <Filter>Source Files\openssl\crypto\rc5</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\ripemd\rmd_dgst.c">

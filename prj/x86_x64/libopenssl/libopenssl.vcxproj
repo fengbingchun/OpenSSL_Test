@@ -1,17 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
@@ -25,22 +17,9 @@
     <ProjectName>libopenssl</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
@@ -54,57 +33,37 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>.\../../../obj/dbg/x86_x64/libopenssl\</OutDir>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IntDir>.\../../../obj/dbg/x86_x64/libopenssl\</IntDir>
-    <IncludePath>$(IncludePath)</IncludePath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(IncludePath)</IncludePath>
-    <OutDir>.\../../../obj/rel/x64_vc12/libopenssl\</OutDir>
-    <IntDir>.\../../../obj/rel/x64_vc12/libopenssl\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>.\../../../obj/rel/x86_x64/libopenssl\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IntDir>.\../../../obj/rel/x64_vc12/libopenssl\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>.\../../../obj/rel/x86_x64/libopenssl\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>.\../../../obj/rel/x64_vc12/libopenssl\</OutDir>
+    <IntDir>.\../../../obj/rel/x86_x64/libopenssl\</IntDir>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>.\../../../obj/rel/x86_x64/libopenssl\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x86_x64/libopenssl\libopenssl.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x86_x64/libopenssl/libopenssl.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/dbg/x86_x64/libopenssl\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/dbg/x86_x64/libopenssl\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/dbg/x86_x64/libopenssl\</ProgramDataBaseFileName>
       <AdditionalIncludeDirectories>../../../src/crypto/openssl/include;../../../src/crypto/openssl;../../../src/crypto/openssl/crypto;../../../src/crypto/openssl/crypto/asn1;../../../src/crypto/openssl/crypto/rc5;../../../src/crypto/openssl/crypto/evp;../../../src/crypto/openssl/crypto/store;../../../src/crypto/openssl/crypto/md2;../../../src/crypto/openssl/crypto/jpake;../../../src/crypto/openssl/MacOS;../../../src/crypto/openssl/crypto/modes</AdditionalIncludeDirectories>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -117,31 +76,7 @@
       <OutputFile>.\../../../obj/dbg/x86_x64/libopenssl\libopenssl.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x64_vc12/libopenssl/libopenssl.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../obj/dbg/x64_vc12/libopenssl\</AssemblerListingLocation>
-      <ObjectFileName>.\../../../obj/dbg/x64_vc12/libopenssl\</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../obj/dbg/x64_vc12/libopenssl\</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../../../src/crypto/openssl/include;../../../src/crypto/openssl;../../../src/crypto/openssl/crypto;../../../src/crypto/openssl/crypto/asn1;../../../src/crypto/openssl/crypto/rc5;../../../src/crypto/openssl/crypto/evp;../../../src/crypto/openssl/crypto/store;../../../src/crypto/openssl/crypto/md2;../../../src/crypto/openssl/crypto/jpake;../../../src/crypto/openssl/MacOS;../../../src/crypto/openssl/crypto/modes</AdditionalIncludeDirectories>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-    <Lib>
-      <OutputFile>../../../lib/dbg/x64_vc12/libopenssl.lib</OutputFile>
-    </Lib>
-    <Bscmake>
-      <OutputFile>.\../../../obj/dbg/x64_vc12/libopenssl\libopenssl.bsc</OutputFile>
-    </Bscmake>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -157,7 +92,6 @@
       <ObjectFileName>.\../../../obj/rel/x86_x64/libopenssl\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/rel/x86_x64/libopenssl\</ProgramDataBaseFileName>
       <AdditionalIncludeDirectories>../../../src/crypto/openssl/include;../../../src/crypto/openssl;../../../src/crypto/openssl/crypto;../../../src/crypto/openssl/crypto/asn1;../../../src/crypto/openssl/crypto/rc5;../../../src/crypto/openssl/crypto/evp;../../../src/crypto/openssl/crypto/store;../../../src/crypto/openssl/crypto/md2;../../../src/crypto/openssl/crypto/jpake;../../../src/crypto/openssl/MacOS;../../../src/crypto/openssl/crypto/modes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -170,36 +104,6 @@
     </Lib>
     <Bscmake>
       <OutputFile>.\../../../obj/rel/x86_x64/libopenssl\libopenssl.bsc</OutputFile>
-    </Bscmake>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>false</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <PrecompiledHeaderOutputFile>.\../../../obj/rel/x64_vc12/libopenssl\libopenssl.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../obj/rel/x64_vc12/libopenssl\</AssemblerListingLocation>
-      <ObjectFileName>.\../../../obj/rel/x64_vc12/libopenssl\</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../obj/rel/x64_vc12/libopenssl\</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>../../../src/crypto/openssl/include;../../../src/crypto/openssl;../../../src/crypto/openssl/crypto;../../../src/crypto/openssl/crypto/asn1;../../../src/crypto/openssl/crypto/rc5;../../../src/crypto/openssl/crypto/evp;../../../src/crypto/openssl/crypto/store;../../../src/crypto/openssl/crypto/md2;../../../src/crypto/openssl/crypto/jpake;../../../src/crypto/openssl/MacOS;../../../src/crypto/openssl/crypto/modes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-    <Lib>
-      <OutputFile>../../../lib/rel/x64_vc12/libopenssl.lib</OutputFile>
-    </Lib>
-    <Bscmake>
-      <OutputFile>.\../../../obj/rel/x64_vc12/libopenssl\libopenssl.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -811,11 +715,9 @@
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md2\md2_dgst.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md2\md2_one.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md4\md4.c" />
-    <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md4\md4s.cpp" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md4\md4_dgst.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md4\md4_one.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md5\md5.c" />
-    <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md5\md5s.cpp" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md5\md5_dgst.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\md5\md5_one.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\mdc2\mdc2dgst.c" />
@@ -911,13 +813,11 @@
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc2\rc2_ecb.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc2\rc2_skey.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc2\tab.c" />
-    <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc4\rc4s.cpp" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc4\rc4_enc.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc4\rc4_skey.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc4\rc4_utl.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc5\rc5cfb64.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc5\rc5ofb64.c" />
-    <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc5\rc5s.cpp" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc5\rc5_ecb.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc5\rc5_enc.c" />
     <ClCompile Include="..\..\..\src\crypto\openssl\crypto\rc5\rc5_skey.c" />
