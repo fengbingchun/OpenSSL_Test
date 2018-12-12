@@ -1,0 +1,5 @@
+1. OpenSSL:
+	version: 1.0.1g
+	commit: b2d951e;
+	date: 2014.04.08;
+	url: https://github.com/openssl/openssl/releases?after=OpenSSL_1_0_2-beta3

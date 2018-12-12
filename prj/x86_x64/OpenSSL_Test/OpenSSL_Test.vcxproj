@@ -22,6 +22,7 @@
     <ProjectGuid>{45DF6F4F-DEA0-4527-B187-2E33845A0EF4}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>xftest</RootNamespace>
+    <ProjectName>OpenSSL_Test</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -68,16 +69,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>.\../../../obj/dbg/x86_vc10/xftest\</OutDir>
-    <IntDir>.\../../../obj/dbg/x86_vc10/xftest\</IntDir>
+    <OutDir>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</OutDir>
+    <IntDir>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>.\../../../obj/rel/x86_vc10/xftest\</OutDir>
-    <IntDir>.\../../../obj/rel/x86_vc10/xftest\</IntDir>
+    <OutDir>.\../../../obj/rel/x86_x64/OpenSSL_Test\</OutDir>
+    <IntDir>.\../../../obj/rel/x86_x64/OpenSSL_Test\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -88,10 +89,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x86_vc10/xftest\xftest.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../obj/dbg/x86_vc10/xftest\</AssemblerListingLocation>
-      <ObjectFileName>.\../../../obj/dbg/x86_vc10/xftest\</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../obj/dbg/x86_vc10/xftest\</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x86_x64/OpenSSL_Test\OpenSSL_Test.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
       <AdditionalIncludeDirectories>../../../src/crypto/openssl/include;../../../src/crypto/openssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -99,12 +100,12 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>../../../lib/dbg/x86_vc10/xftest[dbg_x86_vc10].exe</OutputFile>
-      <AdditionalLibraryDirectories>E:\GitCode\OpenSSL_Test\lib\dbg\x86_vc10;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>xfcrypto[dbg_x86_vc10].lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../../lib/dbg/x86_x64/OpenSSL_Test.exe</OutputFile>
+      <AdditionalLibraryDirectories>E:\GitCode\OpenSSL_Test\lib\dbg\x86_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libopenssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
-      <OutputFile>.\../../../obj/dbg/x86_vc10/xftest\xftest.bsc</OutputFile>
+      <OutputFile>.\../../../obj/dbg/x86_x64/OpenSSL_Test\OpenSSL_Test.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -141,10 +142,10 @@
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <PrecompiledHeaderOutputFile>.\../../../obj/rel/x86_vc10/xftest\xftest.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../obj/rel/x86_vc10/xftest\</AssemblerListingLocation>
-      <ObjectFileName>.\../../../obj/rel/x86_vc10/xftest\</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../obj/rel/x86_vc10/xftest\</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\../../../obj/rel/x86_x64/OpenSSL_Test\OpenSSL_Test.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../obj/rel/x86_x64/OpenSSL_Test\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../obj/rel/x86_x64/OpenSSL_Test\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../obj/rel/x86_x64/OpenSSL_Test\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
       <AdditionalIncludeDirectories>../../../src/crypto/openssl/include;../../../src/crypto/openssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -153,12 +154,12 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>../../../lib/rel/x86_vc10/xftest[rel_x86_vc10].exe</OutputFile>
-      <AdditionalLibraryDirectories>E:\GitCode\OpenSSL_Test\lib\rel\x86_vc10;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>xfcrypto[rel_x86_vc10].lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../../lib/rel/x86_x64/OpenSSL_Test.exe</OutputFile>
+      <AdditionalLibraryDirectories>E:\GitCode\OpenSSL_Test\lib\rel\x86_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libopenssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
-      <OutputFile>.\../../../obj/rel/x86_vc10/xftest\xftest.bsc</OutputFile>
+      <OutputFile>.\../../../obj/rel/x86_x64/OpenSSL_Test\OpenSSL_Test.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -194,49 +195,8 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\demo\xftest\cryptotest.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\demo\xftest\destest.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\..\demo\xftest\md5test.cpp" />
-    <ClCompile Include="..\..\..\demo\xftest\rc4test.cpp" />
-    <ClCompile Include="..\..\..\demo\xftest\rsatest.cpp">
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsManaged>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsManaged>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </PrecompiledHeader>
-      <MinimalRebuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</MinimalRebuild>
-      <MinimalRebuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</MinimalRebuild>
-      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</BasicRuntimeChecks>
-      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Default</BasicRuntimeChecks>
-      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ProgramDatabase</DebugInformationFormat>
-      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ProgramDatabase</DebugInformationFormat>
-      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Async</ExceptionHandling>
-      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Async</ExceptionHandling>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsManaged>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsManaged>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </PrecompiledHeader>
-      <MinimalRebuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</MinimalRebuild>
-      <MinimalRebuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</MinimalRebuild>
-      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</BasicRuntimeChecks>
-      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Default</BasicRuntimeChecks>
-      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ProgramDatabase</DebugInformationFormat>
-      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ProgramDatabase</DebugInformationFormat>
-      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Async</ExceptionHandling>
-      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Async</ExceptionHandling>
-    </ClCompile>
-    <ClCompile Include="..\..\..\demo\xftest\tmp.cpp" />
-    <ClCompile Include="..\..\..\demo\xftest\xftest.cpp" />
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset.cpp" />
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\OpenSSL_Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -244,6 +204,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\demo\OpenSSL_Test\funset.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
