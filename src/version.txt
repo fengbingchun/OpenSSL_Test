@@ -3,3 +3,12 @@
 	commit: b2d951e;
 	date: 2014.04.08;
 	url: https://github.com/openssl/openssl/releases?after=OpenSSL_1_0_2-beta3
+2. cppcodec:
+	version: v0.2
+	commit: 302dc28
+	date: 2018.08.24
+	url: https://github.com/tplgy/cppcodec/releases
+3. b64.c:
+	commit: 7ae6c41
+	date: 2017.08.10
+	url: https://github.com/littlstar/b64.c

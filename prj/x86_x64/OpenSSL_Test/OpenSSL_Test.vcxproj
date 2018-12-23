@@ -61,7 +61,7 @@
       <ObjectFileName>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>../../../src/crypto/openssl/include;../../../src/crypto/openssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../src/crypto/openssl/include;../../../src/crypto/openssl;E:\GitCode\OpenSSL_Test\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -91,7 +91,7 @@
       <ObjectFileName>.\../../../obj/rel/x86_x64/OpenSSL_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/rel/x86_x64/OpenSSL_Test\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>../../../src/crypto/openssl/include;../../../src/crypto/openssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../src/crypto/openssl/include;../../../src/crypto/openssl;E:\GitCode\OpenSSL_Test\src\cppcodec;E:\GitCode\OpenSSL_Test\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,8 +110,12 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset.cpp" />
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_b64.cpp" />
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_cppcodec.cpp" />
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_openssl.cpp" />
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\OpenSSL_Test.cpp" />
+    <ClCompile Include="..\..\..\src\b64\decode.c" />
+    <ClCompile Include="..\..\..\src\b64\encode.c" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

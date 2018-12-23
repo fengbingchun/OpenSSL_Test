@@ -21,7 +21,19 @@
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\OpenSSL_Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset.cpp">
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_openssl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_cppcodec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_b64.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\b64\decode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\b64\encode.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

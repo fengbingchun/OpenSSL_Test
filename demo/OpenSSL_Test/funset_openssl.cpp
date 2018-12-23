@@ -447,7 +447,7 @@ std::string des_decrypt(const std::string& ciphertext, const std::string& key, C
 
 } // namespace
 
-int test_des()
+int test_openssl_des()
 {
 	std::string cleartext = "中国北京12345$abcde%ABCDE@！！！!";
 	std::string ciphertext = "";
@@ -507,7 +507,7 @@ std::string RC4_Decrypt(const std::string& ciphertext, const std::string& key)
 
 } // namespace
 
-int test_rc4()
+int test_openssl_rc4()
 {
 	std::string cleartext = "中国北京12345$abcde%ABCDE@！！！";
 	std::string ciphertext = "";
@@ -562,7 +562,7 @@ std::string MD5_Digest(const std::string& cleartext)
 
 } // namespace
 
-int test_md5()
+int test_openssl_md5()
 {
 	std::string strSrc[7] = {
 		"",
@@ -692,7 +692,7 @@ int public_decrypt(const unsigned char* enc_data, int data_len, const unsigned c
 
 } // namespace
 
-int test_rsa()
+int test_openssl_rsa()
 {
 	std::vector<std::string> strKey(2);//[0]:public key; [1]:private key 
 	Generate_RSA_Key(strKey[0], strKey[1]);
