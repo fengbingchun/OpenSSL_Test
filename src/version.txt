@@ -12,3 +12,9 @@
 	commit: 7ae6c41
 	date: 2017.08.10
 	url: https://github.com/littlstar/b64.c
+4. http-parser:
+	version: v2.8.1
+	commit: 54f55a2
+	date: 2018.03.31
+	url: https://github.com/nodejs/http-parser/releases
+	

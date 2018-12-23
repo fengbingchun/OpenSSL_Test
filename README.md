@@ -4,12 +4,14 @@
 - open source library version:
 	- OpenSSL: 1.0.1g, [GitHub](https://github.com/openssl/openssl/releases?after=OpenSSL_1_0_2-beta3)
 	- b64: [GitHub](https://github.com/littlstar/b64.c)
+	- http-parser: [GitHub](https://github.com/nodejs/http-parser)
 - test code include:
 	- RC4 encrypt and decrypt
 	- DES encrypt and decrypt
 	- RSA encrypt and decrypt
 	- MD5's usage
 	- base64's usage
+	- http-parser's usage
 
 **The project support platform:** 
 - windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.

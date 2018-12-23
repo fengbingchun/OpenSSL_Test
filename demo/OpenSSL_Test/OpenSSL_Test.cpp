@@ -3,7 +3,7 @@
 
 int main()
 {
-	int ret = test_b64_base64();
+	int ret = test_http_parser();
 
 	if (0 == ret) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "********** test fail **********\n");

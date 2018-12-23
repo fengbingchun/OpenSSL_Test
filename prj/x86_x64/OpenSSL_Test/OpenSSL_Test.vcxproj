@@ -112,10 +112,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_b64.cpp" />
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_cppcodec.cpp" />
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_http-parser.cpp" />
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_openssl.cpp" />
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\OpenSSL_Test.cpp" />
     <ClCompile Include="..\..\..\src\b64\decode.c" />
     <ClCompile Include="..\..\..\src\b64\encode.c" />
+    <ClCompile Include="..\..\..\src\http-parser\http_parser.c" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

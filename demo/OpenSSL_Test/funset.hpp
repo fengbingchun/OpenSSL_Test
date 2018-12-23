@@ -1,6 +1,11 @@
 #ifndef FBC_OPENSSL_TEST_FUNSET_HPP_
 #define FBC_OPENSSL_TEST_FUNSET_HPP_
 
+// test http-parser interface
+int test_http_parser();
+int test_http_parser_url();
+int main_(void);
+
 // test b64.c interface
 int test_b64_base64();
 
