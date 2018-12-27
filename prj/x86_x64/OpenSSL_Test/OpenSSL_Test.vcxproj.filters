@@ -42,6 +42,9 @@
     <ClCompile Include="..\..\..\src\http-parser\http_parser.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_curl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\demo\OpenSSL_Test\funset.hpp">

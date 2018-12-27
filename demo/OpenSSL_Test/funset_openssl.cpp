@@ -1,4 +1,4 @@
-#include "funset.hpp"
+ï»¿#include "funset.hpp"
 #include <string>
 #include <vector>
 #include <openssl/des.h>
@@ -81,8 +81,8 @@ std::string des_encrypt(const std::string& cleartext, const std::string& key, CR
 
 		DES_ncbc_encrypt((const unsigned char*)cleartext.c_str(), tmp, cleartext.length() + 1, &keySchedule, &ivec, DES_ENCRYPT);
 
-		// strClearText = (char*)tmp; ÕâÖÖĞ´·¨ÓĞÎÊÌâ£¬´Óunsigned char*Ç¿×ªÎªchar*£¬Èç¹ûÓöµ½ÄÚ´æÖĞ¼ä´æÔÚ0x0£¬
-		// strClearTextÊµ¼ÊÊÇ½Ø¶ÏµÄ£¬Ó¦¸Ã×ö¸öbase64¼ÓÃÜÔËËãÔÙ·µ»Ø£¬½âÃÜÊ±Êı¾İ²ÅÊÇÍêÕûµÄ
+		// strClearText = (char*)tmp; è¿™ç§å†™æ³•æœ‰é—®é¢˜ï¼Œä»unsigned char*å¼ºè½¬ä¸ºchar*ï¼Œå¦‚æœé‡åˆ°å†…å­˜ä¸­é—´å­˜åœ¨0x0ï¼Œ
+		// strClearTextå®é™…æ˜¯æˆªæ–­çš„ï¼Œåº”è¯¥åšä¸ªbase64åŠ å¯†è¿ç®—å†è¿”å›ï¼Œè§£å¯†æ—¶æ•°æ®æ‰æ˜¯å®Œæ•´çš„
 		// strCipherText = (char*)tmp;
 		strCipherText = reinterpret_cast<char*>(tmp);
 
@@ -449,7 +449,7 @@ std::string des_decrypt(const std::string& ciphertext, const std::string& key, C
 
 int test_openssl_des()
 {
-	std::string cleartext = "ÖĞ¹ú±±¾©12345$abcde%ABCDE@£¡£¡£¡!";
+	std::string cleartext = "ä¸­å›½åŒ—äº¬12345$abcde%ABCDE@ï¼ï¼ï¼!";
 	std::string ciphertext = "";
 	const std::string key = "beijingchina1234567890ABCDEFGH!!!";
 
@@ -509,7 +509,7 @@ std::string RC4_Decrypt(const std::string& ciphertext, const std::string& key)
 
 int test_openssl_rc4()
 {
-	std::string cleartext = "ÖĞ¹ú±±¾©12345$abcde%ABCDE@£¡£¡£¡";
+	std::string cleartext = "ä¸­å›½åŒ—äº¬12345$abcde%ABCDE@ï¼ï¼ï¼";
 	std::string ciphertext = "";
 	std::string key = "beijingchina1234567890ABCDEFGH!!!";
 
@@ -736,7 +736,7 @@ int test_openssl_rsa()
 		"uJSUVL5+CVjKLjZEJ6Qc2WZLl94xSwL71E41H4YciVnSCQxVc4Jw\n"\
 		"-----END RSA PRIVATE KEY-----\n";
 
-	std::string cleartext = "ÖĞ¹ú±±¾©12345$abcde%ABCDE@£¡£¡£¡!";
+	std::string cleartext = "ä¸­å›½åŒ—äº¬12345$abcde%ABCDE@ï¼ï¼ï¼!";
 
 	unsigned char  encrypted[4098] = {};
 	unsigned char decrypted[4098] = {};

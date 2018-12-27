@@ -3,7 +3,7 @@
 
 int main()
 {
-	int ret = test_http_parser();
+	int ret = test_curl_download_image_1();
 
 	if (0 == ret) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "********** test fail **********\n");

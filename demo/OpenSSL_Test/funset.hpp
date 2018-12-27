@@ -1,6 +1,9 @@
 #ifndef FBC_OPENSSL_TEST_FUNSET_HPP_
 #define FBC_OPENSSL_TEST_FUNSET_HPP_
 
+// test libcurl interface
+int test_curl_download_image_1();
+
 // test http-parser interface
 int test_http_parser();
 int test_http_parser_url();

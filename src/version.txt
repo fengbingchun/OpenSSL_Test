@@ -17,4 +17,7 @@
 	commit: 54f55a2
 	date: 2018.03.31
 	url: https://github.com/nodejs/http-parser/releases
-	
+5. curl:
+	version: 7.44.0
+	date: 2015.08.12
+	url: https://curl.haxx.se/download.html

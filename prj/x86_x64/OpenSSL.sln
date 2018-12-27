@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenSSL_Test", "OpenSSL_Tes
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libopenssl", "libopenssl\libopenssl.vcxproj", "{9379F50E-FF63-4187-AAEF-4F69BDFD8EB5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcurl", "libcurl\libcurl.vcxproj", "{1561F9EA-FB03-49D7-BF90-F3C339D6F8F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,9 @@ Global
 		{9379F50E-FF63-4187-AAEF-4F69BDFD8EB5}.Debug|x64.Build.0 = Debug|x64
 		{9379F50E-FF63-4187-AAEF-4F69BDFD8EB5}.Release|x64.ActiveCfg = Release|x64
 		{9379F50E-FF63-4187-AAEF-4F69BDFD8EB5}.Release|x64.Build.0 = Release|x64
+		{1561F9EA-FB03-49D7-BF90-F3C339D6F8F2}.Debug|x64.ActiveCfg = Debug|x64
+		{1561F9EA-FB03-49D7-BF90-F3C339D6F8F2}.Release|x64.ActiveCfg = Release|x64
+		{1561F9EA-FB03-49D7-BF90-F3C339D6F8F2}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
