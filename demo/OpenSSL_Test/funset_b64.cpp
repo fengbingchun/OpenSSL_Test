@@ -1,4 +1,4 @@
-#include "funset.hpp"
+ï»¿#include "funset.hpp"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -95,7 +95,7 @@ void base64_cleanup()
 
 int test_b64_base64()
 {
-	std::string str = "±±¾©ABC123+-*/&@!?0";
+	std::string str = "åŒ—äº¬ABC123+-*/&@!?0";
 	fprintf(stdout, "str source : %s\n", str.c_str());
 
 	char* str_en = b64_encode((const unsigned char*)str.c_str(), str.length());

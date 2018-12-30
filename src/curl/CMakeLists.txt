@@ -71,8 +71,8 @@ set(OS "\"${CMAKE_SYSTEM_NAME}\"")
 include_directories(${PROJECT_BINARY_DIR}/include/curl)
 include_directories( ${CURL_SOURCE_DIR}/include )
 
-option(BUILD_CURL_EXE "Set to ON to build cURL executable." ON)
-option(BUILD_CURL_TESTS "Set to ON to build cURL tests." ON)
+option(BUILD_CURL_EXE "Set to ON to build cURL executable." OFF) # fengbingchun modify: from ON to OFF
+option(BUILD_CURL_TESTS "Set to ON to build cURL tests." OFF) # fengbingchun modify: from ON to OFF
 option(CURL_STATICLIB "Set to ON to build libcurl with static linking." OFF)
 option(ENABLE_ARES "Set to ON to enable c-ares support" OFF)
 option(ENABLE_THREADED_RESOLVER "Set to ON to enable POSIX threaded DNS lookup" OFF)
@@ -119,7 +119,7 @@ if(MSVC)
   mark_as_advanced(BUILD_RELEASE_DEBUG_DIRS)
 endif()
 
-option(CURL_HIDDEN_SYMBOLS "Set to ON to hide libcurl internal symbols (=hide all symbols that aren't officially external)." ON)
+option(CURL_HIDDEN_SYMBOLS "Set to ON to hide libcurl internal symbols (=hide all symbols that aren't officially external)." ON) # fengbingchun modfiy: from ON to OFF
 mark_as_advanced(CURL_HIDDEN_SYMBOLS)
 
 # IF(WIN32)
@@ -295,7 +295,7 @@ if(WIN32)
   check_library_exists_concat("winmm"  getch        HAVE_LIBWINMM)
 endif()
 
-option(CMAKE_USE_OPENSSL "Use OpenSSL code. Experimental" ON)
+option(CMAKE_USE_OPENSSL "Use OpenSSL code. Experimental" OFF) # fengbingchun modify: from ON to OFF
 mark_as_advanced(CMAKE_USE_OPENSSL)
 
 set(USE_OPENSSL OFF)

@@ -1,4 +1,5 @@
 ﻿#include "funset.hpp"
+#include <string.h>
 #include <string>
 #include <vector>
 #include <openssl/des.h>
@@ -6,6 +7,7 @@
 #include <openssl/md5.h>
 #include <openssl/rsa.h>
 #include <openssl/pem.h>
+#include <b64/b64.h>
 
 //////////////////////////// DES ///////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/42611875
@@ -294,7 +296,7 @@ std::string des_decrypt(const std::string& ciphertext, const std::string& key, C
 		memcpy(ivec, cbc_iv, sizeof(cbc_iv));
 
 		int iLength = ciphertext.length() % 8 ? (ciphertext.length() / 8 + 1) * 8 : ciphertext.length();
-		unsigned char* tmp = new unsigned char[iLength];
+		unsigned char* tmp = new unsigned char[iLength + 16];
 		memset(tmp, 0, iLength);
 
 		DES_ncbc_encrypt((const unsigned char*)ciphertext.c_str(), tmp, ciphertext.length() + 1, &keySchedule, &ivec, DES_DECRYPT);
@@ -449,27 +451,31 @@ std::string des_decrypt(const std::string& ciphertext, const std::string& key, C
 
 int test_openssl_des()
 {
-	std::string cleartext = "中国北京12345$abcde%ABCDE@！！！!";
-	std::string ciphertext = "";
+	const std::string cleartext = "中国北京12345$abcde%ABCDE！！！!";
 	const std::string key = "beijingchina1234567890ABCDEFGH!!!";
 
-	CRYPTO_MODE mode = CBC;
+	char* cleartext_encode = b64_encode((const unsigned char*)cleartext.c_str(), cleartext.length());
+	std::string str_encode(cleartext_encode);
+	free(cleartext_encode);
 
-	ciphertext = des_encrypt(cleartext, key, mode);
+	CRYPTO_MODE mode = CBC;
+	std::string ciphertext = des_encrypt(str_encode, key, mode);
 	std::string decrypt = des_decrypt(ciphertext, key, mode);
+	unsigned char* ciphertext_decode = b64_decode(decrypt.c_str(), decrypt.length());
+	std::string str_decode((char*)ciphertext_decode);
+	free(ciphertext_decode);
 
 	fprintf(stdout, "src cleartext: %s, size: %d\n", cleartext.c_str(), cleartext.length());
 	fprintf(stdout, "genarate ciphertext: %s, size: %d\n", ciphertext.c_str(), ciphertext.length());
-	fprintf(stdout, "src ciphertext: %s, size: %d\n", ciphertext.c_str(), ciphertext.length());
-	fprintf(stdout, "genarate cleartext: %s, size: %d\n", decrypt.c_str(), decrypt.length());
+	fprintf(stdout, "dst cleartext: %s, size: %d\n", str_decode.c_str(), str_decode.length());
 
-	if (strcmp(cleartext.c_str(), decrypt.c_str()) == 0) {
+	if (strcmp(cleartext.c_str(), str_decode.c_str()) == 0) {
 		fprintf(stdout, "DES decrypt success\n");
 		return 0;
 	} else {
 		fprintf(stderr, "DES decrypt fail\n");
 		return -1;
-	}
+	}	
 }
 
 //////////////////////////// RC4 ///////////////////////////////
@@ -478,13 +484,13 @@ namespace {
 std::string RC4_Encrypt(const std::string& cleartext, const std::string& key)
 {
 	RC4_KEY rc4key;
-	unsigned char* tmp = new unsigned char[cleartext.length() + 1];
-	memset(tmp, 0, cleartext.length() + 1);
+	unsigned char* tmp = new unsigned char[cleartext.length()];
+	memset(tmp, 0, cleartext.length());
 
 	RC4_set_key(&rc4key, key.length(), (const unsigned char*)key.c_str());
 	RC4(&rc4key, cleartext.length(), (const unsigned char*)cleartext.c_str(), tmp);
 
-	std::string str = (char*)tmp;
+	std::string str = std::string((char*)tmp);
 
 	delete[] tmp;
 	return str;
@@ -493,13 +499,13 @@ std::string RC4_Encrypt(const std::string& cleartext, const std::string& key)
 std::string RC4_Decrypt(const std::string& ciphertext, const std::string& key)
 {
 	RC4_KEY rc4key;
-	unsigned char* tmp = new unsigned char[ciphertext.length() + 1];
-	memset(tmp, 0, ciphertext.length() + 1);
+	unsigned char* tmp = new unsigned char[ciphertext.length()];
+	memset(tmp, 0, ciphertext.length());
 
 	RC4_set_key(&rc4key, key.length(), (const unsigned char*)key.c_str());
 	RC4(&rc4key, ciphertext.length(), (const unsigned char*)ciphertext.c_str(), tmp);
 
-	std::string str = (char*)tmp;
+	std::string str = std::string((char*)tmp);
 
 	delete[] tmp;
 	return str;
@@ -509,19 +515,24 @@ std::string RC4_Decrypt(const std::string& ciphertext, const std::string& key)
 
 int test_openssl_rc4()
 {
-	std::string cleartext = "中国北京12345$abcde%ABCDE@！！！";
-	std::string ciphertext = "";
-	std::string key = "beijingchina1234567890ABCDEFGH!!!";
+	const std::string cleartext = "中国北京12345$abcde%ABCDE@！！！!";
+	const std::string key = "beijingchina1234567890ABCDEFGH!!!";
 
-	ciphertext = RC4_Encrypt(cleartext, key);
+	char* cleartext_encode = b64_encode((const unsigned char*)cleartext.c_str(), cleartext.length());
+	std::string str_encode(cleartext_encode);
+	free(cleartext_encode);
+
+	std::string ciphertext = RC4_Encrypt(str_encode, key);
 	std::string decrypt = RC4_Decrypt(ciphertext, key);
+	unsigned char* ciphertext_decode = b64_decode(decrypt.c_str(), decrypt.length());
+	std::string str_decode((char*)ciphertext_decode);
+	free(ciphertext_decode);
 
 	fprintf(stdout, "src cleartext: %s\n", cleartext.c_str());
 	fprintf(stdout, "genarate ciphertext: %s\n", ciphertext.c_str());
-	fprintf(stdout, "src ciphertext: %s\n", ciphertext.c_str());
-	fprintf(stdout, "genarate cleartext: %s\n", decrypt.c_str());
+	fprintf(stdout, "dst cleartext: %s\n", str_decode.c_str());
 
-	if (strcmp(cleartext.c_str(), decrypt.c_str()) == 0) {
+	if (strcmp(cleartext.c_str(), str_decode.c_str()) == 0) {
 		fprintf(stdout, "RC4 decrypt success\n");
 		return 0;
 	} else {

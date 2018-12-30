@@ -17,6 +17,7 @@
 
 **The project support platform:** 
 - windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.
+- Linux: It supports cmake build(file position: prj/linux_cmake_OpenSSL_Test)
 
 **Windows VS Screenshot:**  
 ![](https://github.com/fengbingchun/OpenSSL_Test/blob/master/prj/x86_x64/Screenshot.png)

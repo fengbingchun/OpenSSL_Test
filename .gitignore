@@ -9,3 +9,5 @@
 /prj/x86_x64/ipch/
 /prj/x86_x64/x64/
 *.jpg
+/src/curl/build/
+/prj/linux_cmake_OpenSSL_Test/build/

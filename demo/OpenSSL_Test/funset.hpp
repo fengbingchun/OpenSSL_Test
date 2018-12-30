@@ -7,13 +7,12 @@ int test_curl_download_image_1();
 // test http-parser interface
 int test_http_parser();
 int test_http_parser_url();
-int main_(void);
 
 // test b64.c interface
 int test_b64_base64();
 
 // test cppcodec interface
-int test_ccpcodec_base64_rfc4648();
+int test_cppcodec_base64_rfc4648();
 
 // test openssl interface
 typedef enum {

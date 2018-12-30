@@ -22,7 +22,11 @@ size_t callbackfunction(void *ptr, size_t size, size_t nmemb, void* userdata)
 int test_curl_download_image_1()
 {
 	const char* url = "http://www.xinhuanet.com/photo/2018-11/18/1123730698_15425193202431n.jpg";
+#ifdef __linux__
+	const char* outfilename = "out.jpg";
+#else
 	const char* outfilename = "E:/GitCode/OpenSSL_Test/out.jpg";
+#endif
 
 	FILE* fp = fopen(outfilename, "wb");
 	if (!fp) {

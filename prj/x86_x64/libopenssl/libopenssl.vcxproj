@@ -43,8 +43,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(IncludePath)</IncludePath>
-    <OutDir>.\../../../obj/rel/x86_x64/libopenssl\</OutDir>
-    <IntDir>.\../../../obj/rel/x86_x64/libopenssl\</IntDir>
+    <OutDir>.\../../../obj/dbg/x86_x64/libopenssl\</OutDir>
+    <IntDir>.\../../../obj/dbg/x86_x64/libopenssl\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>.\../../../obj/rel/x86_x64/libopenssl\</IntDir>
