@@ -29,7 +29,7 @@ int test_openssl_des();
 int test_openssl_rc4();
 int test_openssl_md5();
 int test_openssl_rsa();
-
+int test_openssl_aes();
 
 #endif // FBC_OPENSSL_TEST_FUNSET_HPP_
 

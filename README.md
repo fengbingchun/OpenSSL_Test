@@ -10,6 +10,7 @@
 	- RC4 encrypt and decrypt
 	- DES encrypt and decrypt
 	- RSA encrypt and decrypt
+	- AES encrypt and decrypt
 	- MD5's usage
 	- base64's usage
 	- http-parser's usage

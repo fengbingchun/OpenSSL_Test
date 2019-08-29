@@ -1,13 +1,96 @@
-﻿#include "funset.hpp"
+#include "funset.hpp"
 #include <string.h>
 #include <string>
 #include <vector>
+#include <memory>
+#include <algorithm>
 #include <openssl/des.h>
 #include <openssl/rc4.h>
 #include <openssl/md5.h>
 #include <openssl/rsa.h>
 #include <openssl/pem.h>
+#include <openssl/aes.h>
 #include <b64/b64.h>
+
+//////////////////////////// AES ///////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/100139524
+
+namespace {
+
+const unsigned char aes_key[] = {
+    0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77,
+    0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff,
+    0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+    0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+};
+
+} // namespace
+
+int test_openssl_aes()
+{
+	const char* cleartext = "中国北京12345$abcde%ABCDE！！！!";
+	fprintf(stdout, "cleartext length: %d, contents: %s\n", strlen(cleartext), cleartext);
+
+	const int key_bits = sizeof(aes_key) / sizeof(aes_key[0]) * 8;
+
+	// encrypt
+	AES_KEY enc_key;
+	int ret = AES_set_encrypt_key(aes_key, key_bits, &enc_key); 
+	if (ret != 0) return ret;
+
+	char* cleartext_encode = b64_encode(reinterpret_cast<const unsigned char*>(cleartext), strlen(cleartext));
+	std::shared_ptr<char> ptr1;
+	ptr1.reset(cleartext_encode, [](char* p) { free(p); });
+	int encoded_length = (strlen(ptr1.get()) + AES_BLOCK_SIZE - 1) / AES_BLOCK_SIZE * AES_BLOCK_SIZE;
+	std::unique_ptr<unsigned char[]> cleartext_encode2(new unsigned char[encoded_length]);
+	memset(cleartext_encode2.get(), 0, encoded_length);
+	memcpy(cleartext_encode2.get(), ptr1.get(), strlen(ptr1.get()));
+
+	std::unique_ptr<unsigned char[]> cleartext_encrypt(new unsigned char[encoded_length]);
+	memset(cleartext_encrypt.get(), 0, encoded_length);
+	int count = 1;
+	while (encoded_length + AES_BLOCK_SIZE - 1 >= AES_BLOCK_SIZE * count) {
+		const unsigned char* p1 = cleartext_encode2.get() + AES_BLOCK_SIZE * (count - 1);
+		unsigned char* p2 = cleartext_encrypt.get() + AES_BLOCK_SIZE * (count - 1);
+		AES_encrypt(p1, p2, &enc_key);
+		++count;
+	}
+
+	fprintf(stdout, "cleartext encrypt: ");
+	std::for_each(cleartext_encrypt.get(), cleartext_encrypt.get() + encoded_length, [](unsigned char v) { fprintf(stdout, "%02X", v); });
+	fprintf(stdout, "\n");
+
+	// decrypt
+	AES_KEY dec_key;
+	ret = AES_set_decrypt_key(aes_key, key_bits, &dec_key);
+	if (ret != 0) return ret;
+
+	std::unique_ptr<unsigned char[]> ciphertext_decrypt(new unsigned char[encoded_length]);
+	memset(ciphertext_decrypt.get(), 0, encoded_length);
+	count = 1;
+	while (encoded_length + AES_BLOCK_SIZE - 1 >= AES_BLOCK_SIZE * count) {
+		const unsigned char* p1 = cleartext_encrypt.get() + AES_BLOCK_SIZE * (count - 1);
+		unsigned char* p2 = ciphertext_decrypt.get() + AES_BLOCK_SIZE * (count - 1);
+		AES_decrypt(p1, p2, &dec_key);
+		++count;
+	}
+
+	fprintf(stdout, "ciphertext decrypt: ");
+	std::for_each(ciphertext_decrypt.get(), ciphertext_decrypt.get() + encoded_length, [](unsigned char v) { fprintf(stdout, "%02X", v); });
+	fprintf(stdout, "\n");
+
+	unsigned char* decrypt_decode = b64_decode(reinterpret_cast<const char*>(ciphertext_decrypt.get()), encoded_length);
+	std::shared_ptr<unsigned char> ptr2;
+	ptr2.reset(decrypt_decode, [](unsigned char* p) { free(p); });
+	fprintf(stdout, "decrypt result: %s\n", ptr2.get());
+
+	if (strcmp(cleartext, reinterpret_cast<char*>(ptr2.get())) != 0) {
+		fprintf(stderr, "aes decrypt fail\n");
+		return -1;
+	}
+
+	return 0;
+}
 
 //////////////////////////// DES ///////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/42611875
