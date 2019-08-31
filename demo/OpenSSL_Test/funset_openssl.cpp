@@ -1,4 +1,4 @@
-#include "funset.hpp"
+﻿#include "funset.hpp"
 #include <string.h>
 #include <string>
 #include <vector>
@@ -10,7 +10,36 @@
 #include <openssl/rsa.h>
 #include <openssl/pem.h>
 #include <openssl/aes.h>
+#include <openssl/hmac.h>
 #include <b64/b64.h>
+
+//////////////////////////// HMAC ///////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/100176887
+
+int test_openssl_hmac()
+{
+	HMAC_CTX ctx;
+	HMAC_CTX_init(&ctx);
+	
+	const EVP_MD* engine = EVP_sha256(); // it can also be: EVP_md5(), EVP_sha1, etc
+	const char* key = "https://github.com/fengbingchun";
+	const char* data = "https://blog.csdn.net/fengbingchun";
+	std::unique_ptr<unsigned char[]> output(new unsigned char[EVP_MAX_MD_SIZE]);
+	unsigned int output_length;
+
+	HMAC_Init_ex(&ctx, key, strlen(key), engine, nullptr);
+	HMAC_Update(&ctx, reinterpret_cast<const unsigned char*>(data), strlen(data));
+
+	HMAC_Final(&ctx, output.get(), &output_length);
+	HMAC_CTX_cleanup(&ctx);
+
+	fprintf(stdout, "output length: %d\noutput result:", output_length);
+	std::for_each(output.get(), output.get() + output_length, [](unsigned char v) { fprintf(stdout, "%02X", v); });
+	fprintf(stdout, "\n");
+
+	return 0;
+}
+
 
 //////////////////////////// AES ///////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/100139524
