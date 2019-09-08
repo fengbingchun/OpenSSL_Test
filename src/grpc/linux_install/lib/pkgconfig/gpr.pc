@@ -1,0 +1,12 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+includedir=${prefix}/include
+libdir=${exec_prefix}/lib
+
+Name: gpr
+Description: gRPC platform support library
+Version: 7.0.0
+Cflags: -I${includedir} 
+Requires.private: 
+Libs: -L${libdir} -lgpr
+Libs.private: 

@@ -1,7 +1,7 @@
 1. OpenSSL:
 	version: 1.0.1g
-	commit: b2d951e;
-	date: 2014.04.08;
+	commit: b2d951e
+	date: 2014.04.08
 	url: https://github.com/openssl/openssl/releases?after=OpenSSL_1_0_2-beta3
 2. cppcodec:
 	version: v0.2
@@ -21,3 +21,9 @@
 	version: 7.44.0
 	date: 2015.08.12
 	url: https://curl.haxx.se/download.html
+6. gRPC:
+	version: v1.23.0
+	commit: 7c07649
+	date: 2019.08.16
+	url: https://github.com/grpc/grpc/releases
+

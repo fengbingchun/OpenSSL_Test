@@ -6,6 +6,7 @@
 	- b64: [GitHub](https://github.com/littlstar/b64.c)
 	- http-parser: [GitHub](https://github.com/nodejs/http-parser)
 	- curl: 7.44.0, [url](https://curl.haxx.se/)
+	- gRPC: v1.23.0 [GitHub](https://github.com/grpc/grpc)
 - test code include:
 	- OpenSSL
 		- RC4 encrypt and decrypt
@@ -17,10 +18,12 @@
 	- base64's usage
 	- http-parser's usage
 	- curl's usage
+	- gRPC's usage(only support Linux)
 
 **The project support platform:** 
 - windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.
 - Linux: It supports cmake build(file position: prj/linux_cmake_OpenSSL_Test)
+- Linux: It supports cmake build(file position: prj/linux_cmake_gRPC_Test)
 
 **Windows VS Screenshot:**  
 ![](https://github.com/fengbingchun/OpenSSL_Test/blob/master/prj/x86_x64/Screenshot.png)
