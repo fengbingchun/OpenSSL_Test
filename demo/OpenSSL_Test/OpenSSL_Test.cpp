@@ -3,7 +3,7 @@
 
 int main()
 {
-	int ret = test_openssl_hmac();
+	int ret = test_select_1();
 
 	if (0 == ret) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "########## test fail ##########\n");

@@ -19,6 +19,7 @@
 	- http-parser's usage
 	- curl's usage
 	- gRPC's usage(only support Linux)
+	- socket
 
 **The project support platform:** 
 - windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.
