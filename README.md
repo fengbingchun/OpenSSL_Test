@@ -7,6 +7,7 @@
 	- http-parser: [GitHub](https://github.com/nodejs/http-parser)
 	- curl: 7.44.0, [url](https://curl.haxx.se/)
 	- gRPC: v1.23.0 [GitHub](https://github.com/grpc/grpc)
+	- BearSSL: acc70b1 [BearSSL](https://bearssl.org/)
 - test code include:
 	- OpenSSL
 		- RC4 encrypt and decrypt

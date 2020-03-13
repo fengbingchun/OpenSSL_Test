@@ -26,4 +26,7 @@
 	commit: 7c07649
 	date: 2019.08.16
 	url: https://github.com/grpc/grpc/releases
-
+7. BearSSL:
+	commit: acc70b1be60a6f321e2da618cd35d901b1a598a4
+	date: 2020.01.31
+	url: https://bearssl.org/

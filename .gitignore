@@ -12,3 +12,4 @@
 /src/curl/build/
 /prj/linux_cmake_OpenSSL_Test/build/
 /prj/linux_cmake_gRPC_Test/build/
+prj/x86_x64/.vs/
