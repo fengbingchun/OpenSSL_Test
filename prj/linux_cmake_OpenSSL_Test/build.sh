@@ -30,6 +30,21 @@ fi
 cp ${libcurl_path}/build/lib/libcurl* ${new_dir_name}
 echo "========== finish build libcurl =========="
 
+# build bearssl
+echo "========== start build BearSSL =========="
+bearssl_path=${dir_name}/../../src/bearssl
+if [ -f ${bearssl_path}/build/libbearssl.so ]; then
+	echo "bearssl dynamic library already exists without recompiling"
+else
+	cd ${bearssl_path}
+	make
+
+	cd -
+fi
+
+cp ${bearssl_path}/build/libbearssl.so ${new_dir_name}
+echo "========== finish build bearssl =========="
+
 rc=$?
 if [[ ${rc} != 0 ]]; then
 	echo "########## Error: some of thess commands have errors above, please check"

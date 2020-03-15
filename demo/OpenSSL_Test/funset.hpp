@@ -1,6 +1,9 @@
 #ifndef FBC_OPENSSL_TEST_FUNSET_HPP_
 #define FBC_OPENSSL_TEST_FUNSET_HPP_
 
+// bearssl
+int test_bearssl_1();
+
 // socket
 int test_select_1();
 

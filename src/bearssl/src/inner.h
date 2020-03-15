@@ -29,6 +29,14 @@
 #include <limits.h>
 
 #include "config.h"
+
+#ifdef _MSC_VER
+#ifndef inline
+#define inline __inline
+#endif
+#endif
+
+
 #include "bearssl.h"
 
 /*

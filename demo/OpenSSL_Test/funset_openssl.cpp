@@ -1,4 +1,4 @@
-﻿#include "funset.hpp"
+#include "funset.hpp"
 #include <string.h>
 #include <string>
 #include <vector>

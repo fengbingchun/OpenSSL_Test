@@ -1,0 +1,984 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\aead">
+      <UniqueIdentifier>{f5d55cf2-c2df-4efe-8182-4c5c4d6c2321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\codec">
+      <UniqueIdentifier>{7a8951ba-2c8d-4227-a41b-a4a86ad0bb61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ec">
+      <UniqueIdentifier>{01ae7eba-f9b3-49ea-9c5c-0f00d21a16c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\hash">
+      <UniqueIdentifier>{5cda87b9-34cf-4729-8794-4dd862b1228e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\int">
+      <UniqueIdentifier>{cdab71c6-79c9-4d6d-9b67-7e19c715facc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\kdf">
+      <UniqueIdentifier>{5332a3ea-a80b-4083-9ea4-0c43294cd61e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\mac">
+      <UniqueIdentifier>{afc9efd8-3641-4f1b-9b2e-1b3a5f452a71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\rand">
+      <UniqueIdentifier>{71c8b1be-41f2-4836-bc11-15c5fe0084e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\rsa">
+      <UniqueIdentifier>{c964c287-1ba2-43f8-a789-6f2ea76fb5a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ssl">
+      <UniqueIdentifier>{35d9f332-7bd9-4a01-898f-cee3b68fe6e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\symcipher">
+      <UniqueIdentifier>{13589639-d4e7-4ed9-b84e-5abda0bbb0fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\x509">
+      <UniqueIdentifier>{76f83fa3-463e-422e-9345-341ab7643071}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\bearssl\src\aead\ccm.c">
+      <Filter>源文件\aead</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\aead\eax.c">
+      <Filter>源文件\aead</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\aead\gcm.c">
+      <Filter>源文件\aead</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\pemenc.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\pemdec.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\enc64le.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\enc64be.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\enc32le.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\enc32be.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\enc16le.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\enc16be.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\dec64le.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\dec64be.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\dec32le.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\dec32be.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\dec16le.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\dec16be.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\codec\ccopy.c">
+      <Filter>源文件\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_rta.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_i31_vrfy_raw.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_i31_vrfy_asn1.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_i31_sign_raw.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_i31_sign_asn1.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_i31_bits.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_i15_vrfy_raw.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_i15_vrfy_asn1.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_i15_sign_raw.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_i15_sign_asn1.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_i15_bits.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_default_vrfy_raw.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_default_vrfy_asn1.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_default_sign_raw.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_default_sign_asn1.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ecdsa_atr.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_secp521r1.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_secp384r1.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_secp256r1.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_pubkey.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_prime_i31.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_prime_i15.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_p256_m64.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_p256_m62.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_p256_m31.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_p256_m15.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_keygen.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_default.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_curve25519.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_c25519_m64.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_c25519_m62.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_c25519_m31.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_c25519_m15.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_c25519_i31.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_c25519_i15.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_all_m31.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ec\ec_all_m15.c">
+      <Filter>源文件\ec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\sha2small.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\sha2big.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\sha1.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\multihash.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\mgf1.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\md5sha1.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\md5.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\ghash_pwr8.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\ghash_pclmul.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\ghash_ctmul64.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\ghash_ctmul32.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\ghash_ctmul.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\dig_size.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\hash\dig_oid.c">
+      <Filter>源文件\hash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i62_modpow2.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_tmont.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_sub.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_reduce.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_ninv32.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_muladd.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_mulacc.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_montmul.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_modpow.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_iszero.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_fmont.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_encode.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_div32.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_decred.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_decode.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_decmod.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_bitlen.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i32_add.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_tmont.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_sub.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_rshift.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_reduce.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_ninv31.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_muladd.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_mulacc.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_montmul.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_modpow2.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_modpow.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_moddiv.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_iszero.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_fmont.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_encode.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_decred.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_decode.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_decmod.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_bitlen.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i31_add.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_tmont.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_sub.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_rshift.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_reduce.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_ninv15.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_muladd.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_mulacc.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_montmul.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_modpow2.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_modpow.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_moddiv.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_iszero.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_fmont.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_encode.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_decred.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_decode.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_decmod.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_bitlen.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\int\i15_add.c">
+      <Filter>源文件\int</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\kdf\hkdf.c">
+      <Filter>源文件\kdf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\kdf\shake.c">
+      <Filter>源文件\kdf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\mac\hmac.c">
+      <Filter>源文件\mac</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\mac\hmac_ct.c">
+      <Filter>源文件\mac</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\x509\x509_minimal_full.c">
+      <Filter>源文件\x509</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\x509\x509_minimal.c">
+      <Filter>源文件\x509</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\x509\x509_knownkey.c">
+      <Filter>源文件\x509</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\x509\x509_decoder.c">
+      <Filter>源文件\x509</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\x509\skey_decoder.c">
+      <Filter>源文件\x509</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\x509\encode_rsa_rawder.c">
+      <Filter>源文件\x509</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\x509\encode_rsa_pk8der.c">
+      <Filter>源文件\x509</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\x509\encode_ec_rawder.c">
+      <Filter>源文件\x509</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\x509\encode_ec_pk8der.c">
+      <Filter>源文件\x509</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\x509\asn1enc.c">
+      <Filter>源文件\x509</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\poly1305_i15.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\poly1305_ctmulq.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\poly1305_ctmul32.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\poly1305_ctmul.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\des_tab_cbcenc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\des_tab_cbcdec.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\des_tab.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\des_support.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\des_ct_cbcenc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\des_ct_cbcdec.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\des_ct.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\chacha20_sse2.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\chacha20_ct.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_x86ni_ctrcbc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_x86ni_ctr.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_x86ni_cbcenc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_x86ni_cbcdec.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_x86ni.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_small_enc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_small_dec.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_small_ctrcbc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_small_ctr.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_small_cbcenc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_small_cbcdec.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_pwr8_ctrcbc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_pwr8_ctr.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_pwr8_cbcenc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_pwr8_cbcdec.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_pwr8.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct64_enc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct64_dec.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct64_ctrcbc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct64_ctr.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct64_cbcenc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct64_cbcdec.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct64.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct_enc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct_dec.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct_ctrcbc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct_ctr.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct_cbcenc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct_cbcdec.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_ct.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_common.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_big_enc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_big_dec.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_big_ctrcbc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_big_ctr.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_big_cbcenc.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\symcipher\aes_big_cbcdec.c">
+      <Filter>源文件\symcipher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_server_minv2g.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_server_minu2g.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_server_minr2g.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_server_minf2g.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_server_minf2c.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_server_mine2g.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_server_mine2c.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_server_full_rsa.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_server_full_ec.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_server.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_scert_single_rsa.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_scert_single_ec.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_rec_gcm.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_rec_chapol.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_rec_ccm.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_rec_cbc.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_lru.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_keyexport.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_io.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_hs_server.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_hs_client.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_hashes.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_engine_default_rsavrfy.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_engine_default_ecdsa.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_engine_default_ec.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_engine_default_descbc.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_engine_default_chapol.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_engine_default_aesgcm.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_engine_default_aesccm.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_engine_default_aescbc.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_engine.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_client_full.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_client_default_rsapub.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_client.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_ccert_single_rsa.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\ssl_ccert_single_ec.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\prf_sha384.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\prf_sha256.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\prf_md5sha1.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\ssl\prf.c">
+      <Filter>源文件\ssl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_ssl_decrypt.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_pss_sig_unpad.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_pss_sig_pad.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_pkcs1_sig_unpad.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_pkcs1_sig_pad.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_oaep_unpad.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_oaep_pad.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i62_pub.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i62_pss_vrfy.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i62_pss_sign.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i62_priv.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i62_pkcs1_vrfy.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i62_pkcs1_sign.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i62_oaep_encrypt.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i62_oaep_decrypt.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i62_keygen.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i32_pub.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i32_pss_vrfy.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i32_pss_sign.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i32_priv.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i32_pkcs1_vrfy.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i32_pkcs1_sign.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i32_oaep_encrypt.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i32_oaep_decrypt.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_pubexp.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_pub.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_pss_vrfy.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_pss_sign.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_privexp.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_priv.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_pkcs1_vrfy.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_pkcs1_sign.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_oaep_encrypt.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_oaep_decrypt.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_modulus.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_keygen_inner.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i31_keygen.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i15_pubexp.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i15_pub.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i15_pss_vrfy.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i15_pss_sign.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i15_privexp.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i15_priv.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i15_pkcs1_vrfy.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i15_pkcs1_sign.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i15_oaep_encrypt.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i15_oaep_decrypt.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i15_modulus.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_i15_keygen.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_default_pubexp.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_default_pub.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_default_pss_vrfy.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_default_pss_sign.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_default_privexp.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_default_priv.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_default_pkcs1_vrfy.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_default_pkcs1_sign.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_default_oaep_encrypt.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_default_oaep_decrypt.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_default_modulus.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rsa\rsa_default_keygen.c">
+      <Filter>源文件\rsa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rand\aesctr_drbg.c">
+      <Filter>源文件\rand</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rand\hmac_drbg.c">
+      <Filter>源文件\rand</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\rand\sysrng.c">
+      <Filter>源文件\rand</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\bearssl\src\settings.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\bearssl\src\config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\src\inner.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl_aead.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl_block.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl_ec.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl_hash.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl_hmac.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl_kdf.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl_pem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl_prf.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl_rand.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl_rsa.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl_ssl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\bearssl\inc\bearssl_x509.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

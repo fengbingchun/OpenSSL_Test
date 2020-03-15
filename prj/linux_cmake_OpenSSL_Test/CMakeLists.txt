@@ -28,6 +28,7 @@ SET(PATH_SRC_B64_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src)
 SET(PATH_SRC_CPPCODEC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src/cppcodec)
 SET(PATH_SRC_CURL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src/curl)
 SET(PATH_SRC_HTTP_PARSER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src)
+SET(PATH_SRC_BEARSSL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src/bearssl)
 MESSAGE(STATUS "path test files: ${PATH_TEST_FILES}")
 
 SET(PATH_OPENCV /opt/opencv3.4.2)
@@ -48,6 +49,7 @@ INCLUDE_DIRECTORIES(
 	${PATH_SRC_HPPT_PARSER_FILES}
 	${PATH_SRC_CURL_FILES}/include
 	${PATH_SRC_CURL_FILES}/build
+	${PATH_SRC_BEARSSL_FILES}/inc
 )
 
 # build openssl
@@ -118,6 +120,7 @@ ADD_EXECUTABLE(OpenSSL_Test ${TEST_CPP_LIST} ${TEST_CC_LIST} ${SRC_C_LIST})
 TARGET_LINK_LIBRARIES(OpenSSL_Test
 	openssl
 	${DEP_LIB_DIR}/libcurl.so
+	${DEP_LIB_DIR}/libbearssl.so
 	${opencv_ml}
 	${opencv_core}
 	${opencv_imgproc}
