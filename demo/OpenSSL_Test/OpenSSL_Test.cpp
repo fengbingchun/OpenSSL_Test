@@ -3,7 +3,7 @@
 
 int main()
 {
-	int ret = test_bearssl_1();
+	int ret = test_openssl_aes_gcm();
 
 	if (0 == ret) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "########## test fail ##########\n");

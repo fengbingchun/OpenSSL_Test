@@ -31,6 +31,7 @@ typedef enum {
 	TRIPLE_CBC
 } CRYPTO_MODE;
 
+int test_openssl_aes_gcm();
 int test_openssl_des();
 int test_openssl_rc4();
 int test_openssl_md5();
