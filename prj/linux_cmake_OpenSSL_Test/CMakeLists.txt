@@ -18,12 +18,11 @@ ELSE()
 ENDIF()
 MESSAGE(STATUS "cmake build type: ${CMAKE_BUILD_TYPE}")
 
-ADD_DEFINITIONS(-DOPENSSL_NO_ASM)
 ADD_DEFINITIONS(-D_DEFAULT_SOURCE=1) # fix bss_dgram.c: error: 'const struct in6_addr' has no member named 's6_addr32'
 
 MESSAGE(STATUS "cmake current source dir: ${CMAKE_CURRENT_SOURCE_DIR}")
 SET(PATH_TEST_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../demo/OpenSSL_Test)
-SET(PATH_SRC_OPENSSL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src/openssl)
+SET(PATH_SRC_OPENSSL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src/openssl/build/install/include)
 SET(PATH_SRC_B64_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src)
 SET(PATH_SRC_CPPCODEC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src/cppcodec)
 SET(PATH_SRC_CURL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src/curl)
@@ -43,7 +42,6 @@ INCLUDE_DIRECTORIES(
 	${PATH_TEST_FILES}
 	${PATH_OPENCV}/include
 	${PATH_SRC_OPENSSL_FILES}
-	${PATH_SRC_OPENSSL_FILES}/include
 	${PATH_SRC_B64_FILES}
 	${PATH_SRC_CPPCODEC_FILES}
 	${PATH_SRC_HPPT_PARSER_FILES}
@@ -51,43 +49,6 @@ INCLUDE_DIRECTORIES(
 	${PATH_SRC_CURL_FILES}/build
 	${PATH_SRC_BEARSSL_FILES}/inc
 )
-
-# build openssl
-SET(OPENSSL_SRC_LIST )
-FILE(GLOB_RECURSE OPENSSL_SRC_LIST ${PATH_SRC_OPENSSL_FILES}/*.c)
-# remove unuse .c file
-LIST(REMOVE_ITEM OPENSSL_SRC_LIST
-	${PATH_SRC_OPENSSL_FILES}/crypto/LPdir_nyi.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/LPdir_unix.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/LPdir_vms.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/LPdir_win.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/LPdir_win32.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/LPdir_wince.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/aes/aes_x86core.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/armcap.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/bio/bss_rtcp.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/bn/asm/x86_64-gcc.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/bn/exp.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/conf/cnf_save.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/conf/test.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/cversion.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/des/des_opts.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/des/read_pwd.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/evp/e_aes.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/evp/e_dsa.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/lhash/lh_test.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/pkcs7/bio_ber.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/pkcs7/pk7_enc.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/rc2/rc2speed.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/rc4/rc4.c
-	${PATH_SRC_OPENSSL_FILES}/crypto/x509v3/v3conf.c
-	${PATH_SRC_OPENSSL_FILES}/ssl/ssl_task.c
-)
-
-INCLUDE_DIRECTORIES(${PATH_SRC_OPENSSL_FILES}/crypto)
-INCLUDE_DIRECTORIES(${PATH_SRC_OPENSSL_FILES}/crypto/asn1)
-INCLUDE_DIRECTORIES(${PATH_SRC_OPENSSL_FILES}/crypto/evp)
-ADD_LIBRARY(openssl STATIC ${OPENSSL_SRC_LIST})
 
 # find opencv library
 FIND_LIBRARY(opencv_core NAMES opencv_core PATHS ${PATH_OPENCV}/lib NO_DEFAULT_PATH)
@@ -118,7 +79,8 @@ MESSAGE(STATUS "test cpp list: ${TEST_CPP_LIST} ${TEST_C_LIST} ${SRC_C_LIST}")
 ADD_EXECUTABLE(OpenSSL_Test ${TEST_CPP_LIST} ${TEST_CC_LIST} ${SRC_C_LIST})
 # add dependent library: static and dynamic
 TARGET_LINK_LIBRARIES(OpenSSL_Test
-	openssl
+	${DEP_LIB_DIR}/libcrypto.so.1.1
+	${DEP_LIB_DIR}/libssl.so.1.1
 	${DEP_LIB_DIR}/libcurl.so
 	${DEP_LIB_DIR}/libbearssl.so
 	${opencv_ml}

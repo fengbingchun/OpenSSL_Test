@@ -1,4 +1,4 @@
-#include "funset.hpp"
+﻿#include "funset.hpp"
 #include <string.h>
 #include <string>
 #include <vector>
@@ -35,14 +35,13 @@ static const unsigned char gcm_aad[] = { // 16 bytes
 	0x7f, 0xec, 0x78, 0xde
 };
 
-#ifdef _MSC_VER
 std::unique_ptr<unsigned char[]> aes_gcm_encrypt(const char* plaintext, int& length, unsigned char* tag)
 {
 	EVP_CIPHER_CTX* ctx = EVP_CIPHER_CTX_new();
 	// Set cipher type and mode
 	EVP_EncryptInit_ex(ctx, EVP_aes_256_gcm(), nullptr, nullptr, nullptr);
 	// Set IV length if default 96 bits is not appropriate
-	EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_SET_IVLEN/*EVP_CTRL_AEAD_SET_IVLEN*/, sizeof(gcm_iv), nullptr);
+	EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_AEAD_SET_IVLEN, sizeof(gcm_iv), nullptr);
 	// Initialise key and IV
 	EVP_EncryptInit_ex(ctx, nullptr, nullptr, gcm_key, gcm_iv);
 	// Zero or more calls to specify any AAD
@@ -57,11 +56,10 @@ std::unique_ptr<unsigned char[]> aes_gcm_encrypt(const char* plaintext, int& len
 	// Finalise: note get no output for GCM
 	EVP_EncryptFinal_ex(ctx, outbuf, &outlen);
 	// Get tag
-	EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_GET_TAG/*EVP_CTRL_AEAD_GET_TAG*/, 16, outbuf);
+	EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_AEAD_GET_TAG, 16, outbuf);
 	memcpy(tag, outbuf, 16);
 	// Clean up
 	EVP_CIPHER_CTX_free(ctx);
-
 	return ciphertext;
 }
 
@@ -71,7 +69,7 @@ std::unique_ptr<unsigned char[]> aes_gcm_decrypt(const unsigned char* ciphertext
 	// Select cipher
 	EVP_DecryptInit_ex(ctx, EVP_aes_256_gcm(), nullptr, nullptr, nullptr);
 	// Set IV length, omit for 96 bits
-	EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_SET_IVLEN/*EVP_CTRL_AEAD_SET_IVLEN*/, sizeof(gcm_iv), nullptr);
+	EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_AEAD_SET_IVLEN, sizeof(gcm_iv), nullptr);
 	// Specify key and IV
 	EVP_DecryptInit_ex(ctx, nullptr, nullptr, gcm_key, gcm_iv);
 	int outlen;
@@ -85,7 +83,7 @@ std::unique_ptr<unsigned char[]> aes_gcm_decrypt(const unsigned char* ciphertext
 	std::unique_ptr<unsigned char[]> plaintext(new unsigned char[length]);
 	memcpy(plaintext.get(), outbuf, length);
 	// Set expected tag value
-	EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_SET_TAG/*EVP_CTRL_AEAD_SET_TAG*/, 16, (void*)tag);
+	EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_AEAD_SET_TAG, 16, (void*)tag);
 	// Finalise: note get no output for GCM
 	int rv = EVP_DecryptFinal_ex(ctx, outbuf, &outlen);
 	// Print out return value. If this is not successful authentication failed and plaintext is not trustworthy.
@@ -93,13 +91,11 @@ std::unique_ptr<unsigned char[]> aes_gcm_decrypt(const unsigned char* ciphertext
 	EVP_CIPHER_CTX_free(ctx);
 	return plaintext;
 }
-#endif
 
 } // namespace
 
 int test_openssl_aes_gcm()
 {
-#ifdef _MSC_VER
 	/* reference:
 		https://github.com/openssl/openssl/blob/master/demos/evp/aesgcm.c
 		https://wiki.openssl.org/index.php/EVP_Authenticated_Encryption_and_Decryption
@@ -132,10 +128,6 @@ int test_openssl_aes_gcm()
 		fprintf(stderr, "decrypt fail\n");
 		return -1;
 	}
-#else
-	fprintf(stderr, "this test only support windows\n");
-	return -1;
-#endif
 }
 
 //////////////////////////// HMAC ///////////////////////////////
@@ -143,8 +135,8 @@ int test_openssl_aes_gcm()
 
 int test_openssl_hmac()
 {
-	HMAC_CTX ctx;
-	HMAC_CTX_init(&ctx);
+	HMAC_CTX* ctx = HMAC_CTX_new();
+	HMAC_CTX_reset(ctx);
 	
 	const EVP_MD* engine = EVP_sha256(); // it can also be: EVP_md5(), EVP_sha1, etc
 	const char* key = "https://github.com/fengbingchun";
@@ -152,11 +144,11 @@ int test_openssl_hmac()
 	std::unique_ptr<unsigned char[]> output(new unsigned char[EVP_MAX_MD_SIZE]);
 	unsigned int output_length;
 
-	HMAC_Init_ex(&ctx, key, strlen(key), engine, nullptr);
-	HMAC_Update(&ctx, reinterpret_cast<const unsigned char*>(data), strlen(data));
+	HMAC_Init_ex(ctx, key, strlen(key), engine, nullptr);
+	HMAC_Update(ctx, reinterpret_cast<const unsigned char*>(data), strlen(data));
 
-	HMAC_Final(&ctx, output.get(), &output_length);
-	HMAC_CTX_cleanup(&ctx);
+	HMAC_Final(ctx, output.get(), &output_length);
+	HMAC_CTX_free(ctx);
 
 	fprintf(stdout, "output length: %d\noutput result:", output_length);
 	std::for_each(output.get(), output.get() + output_length, [](unsigned char v) { fprintf(stdout, "%02X", v); });
@@ -718,34 +710,20 @@ int test_openssl_des()
 //////////////////////////// RC4 ///////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/42929883
 namespace {
-std::string RC4_Encrypt(const std::string& cleartext, const std::string& key)
+void RC4_Encrypt(const unsigned char* cleartext, int length, const std::string& key, unsigned char* ciphertext)
 {
 	RC4_KEY rc4key;
-	unsigned char* tmp = new unsigned char[cleartext.length()];
-	memset(tmp, 0, cleartext.length());
 
 	RC4_set_key(&rc4key, key.length(), (const unsigned char*)key.c_str());
-	RC4(&rc4key, cleartext.length(), (const unsigned char*)cleartext.c_str(), tmp);
-
-	std::string str = std::string((char*)tmp);
-
-	delete[] tmp;
-	return str;
+	RC4(&rc4key, length, cleartext, ciphertext);
 }
 
-std::string RC4_Decrypt(const std::string& ciphertext, const std::string& key)
+void RC4_Decrypt(const unsigned char* ciphertext, int length, const std::string& key, unsigned char* cleartext)
 {
 	RC4_KEY rc4key;
-	unsigned char* tmp = new unsigned char[ciphertext.length()];
-	memset(tmp, 0, ciphertext.length());
 
 	RC4_set_key(&rc4key, key.length(), (const unsigned char*)key.c_str());
-	RC4(&rc4key, ciphertext.length(), (const unsigned char*)ciphertext.c_str(), tmp);
-
-	std::string str = std::string((char*)tmp);
-
-	delete[] tmp;
-	return str;
+	RC4(&rc4key, length, ciphertext, cleartext);
 }
 
 } // namespace
@@ -756,24 +734,30 @@ int test_openssl_rc4()
 	const std::string key = "beijingchina1234567890ABCDEFGH!!!";
 
 	char* cleartext_encode = b64_encode((const unsigned char*)cleartext.c_str(), cleartext.length());
-	std::string str_encode(cleartext_encode);
-	free(cleartext_encode);
+	int length = strlen(cleartext_encode);
+	fprintf(stdout, "cleartext encode length: %d\n", length);
 
-	std::string ciphertext = RC4_Encrypt(str_encode, key);
-	std::string decrypt = RC4_Decrypt(ciphertext, key);
-	unsigned char* ciphertext_decode = b64_decode(decrypt.c_str(), decrypt.length());
-	std::string str_decode((char*)ciphertext_decode);
-	free(ciphertext_decode);
+	std::unique_ptr<unsigned char[]> ciphertext(new unsigned char[length]);
+	RC4_Encrypt((const unsigned char*)cleartext_encode, length, key, ciphertext.get());
+
+	std::unique_ptr<unsigned char[]> decrypt(new unsigned char[length]);
+	RC4_Decrypt(ciphertext.get(), length, key, decrypt.get());
+
+	unsigned char* ciphertext_decode = b64_decode((char*)decrypt.get(), length);
 
 	fprintf(stdout, "src cleartext: %s\n", cleartext.c_str());
-	fprintf(stdout, "genarate ciphertext: %s\n", ciphertext.c_str());
-	fprintf(stdout, "dst cleartext: %s\n", str_decode.c_str());
+	fprintf(stdout, "genarate ciphertext: %s\n", ciphertext.get());
+	fprintf(stdout, "dst cleartext: %s\n", ciphertext_decode);
 
-	if (strcmp(cleartext.c_str(), str_decode.c_str()) == 0) {
+	if (strcmp(cleartext.c_str(), (const char*)ciphertext_decode) == 0) {
 		fprintf(stdout, "RC4 decrypt success\n");
+		free(cleartext_encode);
+		free(ciphertext_decode);
 		return 0;
 	} else {
 		fprintf(stderr, "RC4 decrypt fail\n");
+		free(cleartext_encode);
+		free(ciphertext_decode);
 		return -1;
 	}
 }

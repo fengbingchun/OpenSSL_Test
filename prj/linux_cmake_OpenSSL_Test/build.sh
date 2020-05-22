@@ -45,6 +45,24 @@ fi
 cp ${bearssl_path}/build/libbearssl.so ${new_dir_name}
 echo "========== finish build bearssl =========="
 
+# build openssl
+echo "========== start build openssl =========="
+openssl_path=${dir_name}/../../src/openssl
+if [[ -f ${openssl_path}/build/install/lib/libcrypto.so.1.1 && -f ${openssl_path}/build/install/lib/libssl.so.1.1 ]]; then
+	echo "openssl dynamic library already exists without recompiling"
+else
+	mkdir -p ${openssl_path}/build
+	cd ${openssl_path}/build
+	.././config --prefix=${openssl_path}/build/install
+	make
+	make install
+
+	cd -
+fi
+
+cp ${openssl_path}/build/install/lib/libcrypto.so.1.1 ${new_dir_name}
+cp ${openssl_path}/build/install/lib/libssl.so.1.1 ${new_dir_name}
+
 rc=$?
 if [[ ${rc} != 0 ]]; then
 	echo "########## Error: some of thess commands have errors above, please check"

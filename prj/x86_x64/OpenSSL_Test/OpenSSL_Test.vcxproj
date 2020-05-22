@@ -61,7 +61,7 @@
       <ObjectFileName>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>../../../src/openssl/include;../../../src/openssl;E:\GitCode\OpenSSL_Test\src;E:\GitCode\OpenSSL_Test\src\curl\include;E:\GitCode\OpenSSL_Test\src\bearssl\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\src;E:\GitCode\OpenSSL_Test\src\curl\include;E:\GitCode\OpenSSL_Test\src\bearssl\inc;E:\GitCode\OpenSSL_Test\prj\x86_x64\libopenssl;E:\GitCode\OpenSSL_Test\src\openssl\include;E:\GitCode\OpenSSL_Test\src\openssl\ms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -91,7 +91,7 @@
       <ObjectFileName>.\../../../obj/rel/x86_x64/OpenSSL_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/rel/x86_x64/OpenSSL_Test\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>../../../src/openssl/include;../../../src/openssl;E:\GitCode\OpenSSL_Test\src\cppcodec;E:\GitCode\OpenSSL_Test\src;E:\GitCode\OpenSSL_Test\src\curl\include;E:\GitCode\OpenSSL_Test\src\bearssl\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\src\cppcodec;E:\GitCode\OpenSSL_Test\src;E:\GitCode\OpenSSL_Test\src\curl\include;E:\GitCode\OpenSSL_Test\src\bearssl\inc;E:\GitCode\OpenSSL_Test\prj\x86_x64\libopenssl;E:\GitCode\OpenSSL_Test\src\openssl\include;E:\GitCode\OpenSSL_Test\src\openssl\ms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
