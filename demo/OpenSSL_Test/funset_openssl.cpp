@@ -748,18 +748,18 @@ int test_openssl_rc4()
 	fprintf(stdout, "src cleartext: %s\n", cleartext.c_str());
 	fprintf(stdout, "genarate ciphertext: %s\n", ciphertext.get());
 	fprintf(stdout, "dst cleartext: %s\n", ciphertext_decode);
+	int ret = 0;
 
 	if (strcmp(cleartext.c_str(), (const char*)ciphertext_decode) == 0) {
 		fprintf(stdout, "RC4 decrypt success\n");
-		free(cleartext_encode);
-		free(ciphertext_decode);
-		return 0;
 	} else {
 		fprintf(stderr, "RC4 decrypt fail\n");
-		free(cleartext_encode);
-		free(ciphertext_decode);
-		return -1;
+		ret = -1;
 	}
+
+	free(cleartext_encode);
+	free(ciphertext_decode);
+	return ret;
 }
 
 ////////////////////////////// MD5 /////////////////////////////
