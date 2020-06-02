@@ -14,3 +14,4 @@
 /prj/linux_cmake_gRPC_Test/build/
 prj/x86_x64/.vs/
 /src/openssl/build/
+/prj/linux_cmake_OpenSSL_Test/testdata

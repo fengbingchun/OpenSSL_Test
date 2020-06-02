@@ -14,6 +14,187 @@
 #include <b64/b64.h>
 #include <openssl/bio.h>
 #include <openssl/evp.h>
+#include <openssl/asn1.h>
+#include <openssl/asn1t.h>
+
+////////////////////////////// ASN.1 ///////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/106487696
+
+namespace {
+
+int test_openssl_asn1_simple_encode()
+{
+	// test 1
+	const char* src = "IA5STRING:https://blog.csdn.net/fengbingchun";
+	CONF* nconf = nullptr;
+	ASN1_TYPE* encoded = ASN1_generate_nconf(src, nconf);
+	if (!encoded) {
+		fprintf(stderr, "fail to asn1 encode: %s\n", src);
+		return -1;
+	}
+
+	// test 2
+	const char* src2 = "https://blog.csdn.net/fengbingchun";
+	ASN1_STRING asn1str;
+	memset(&asn1str, 0, sizeof(ASN1_STRING));
+	ASN1_STRING_set(&asn1str, src2, strlen(src2));
+	const char *value = reinterpret_cast<char*>(ASN1_STRING_data(&asn1str));
+	fprintf(stdout, "the value is: %s, strlen: %u\n", value, strlen(value));
+
+	std::unique_ptr<unsigned char[]> encoded2(new unsigned char[strlen(src2) + 2]);
+	unsigned char* p = encoded2.get();
+	int encoded2_len = i2d_ASN1_OCTET_STRING(&asn1str, &p);
+	fprintf(stdout, "encoded length: %d\n", encoded2_len);
+
+#ifdef _MSC_VER
+	const char* name = "E:/GitCode/OpenSSL_Test/testdata/simple2.der";
+#else
+	const char* name = "testdata/simple2.der";
+#endif
+	FILE* fp = fopen(name, "wb");
+	if (!fp) {
+		fprintf(stderr, "fail to open file: %s\n", name);
+		return -1;
+	}
+
+	fwrite(encoded2.get(), 1, strlen(src2) + 2, fp);
+	fclose(fp);
+
+	return 0;
+}
+
+int test_openssl_simple_decode()
+{
+#ifdef _MSC_VER
+	const char* name = "E:/GitCode/OpenSSL_Test/data/testsimple.der";
+#else
+	const char* name = "data/testsimple.der";
+#endif
+	FILE* fp = fopen(name, "rb");
+	if (!fp) {
+		fprintf(stderr, "fail to open file: %s\n", name);
+		return -1;
+	}
+	fseek(fp, 0, SEEK_END);
+	long length = ftell(fp);
+	rewind(fp);
+
+	std::unique_ptr<unsigned char[]> data(new unsigned char[length + 1]);
+	data.get()[length] = '\0'; // in order to be correct fprintf %s
+	fread(data.get(), 1, length, fp);
+	fclose(fp);
+
+	if (data.get()[0] != V_ASN1_IA5STRING) {
+		fprintf(stderr, "fail to get asn1 tag value: %d, %d\n", data.get()[0], V_ASN1_IA5STRING);
+		return -1;
+	}
+
+	fprintf(stdout, "decode data length: %d\n", data.get()[1]);
+	fprintf(stdout, "decode data: %s\n", (char*)(data.get() + 2));
+
+	const unsigned char* p = data.get();
+	ASN1_IA5STRING* str = ASN1_IA5STRING_new();
+	d2i_ASN1_IA5STRING(&str, &p, length);
+	fprintf(stdout, "decode data: %s\n", str->data);
+	ASN1_IA5STRING_free(str);
+
+	return 0;
+}
+
+typedef struct RSA_PRIVATE_KEY_st {
+	ASN1_INTEGER* version;
+	ASN1_INTEGER* n;
+	ASN1_INTEGER* e;
+	ASN1_INTEGER* d;
+	ASN1_INTEGER* p;
+	ASN1_INTEGER* q;
+	ASN1_INTEGER* exp1;
+	ASN1_INTEGER* exp2;
+	ASN1_INTEGER* coeff;
+} RSA_PRIVATE_KEY;
+DECLARE_ASN1_FUNCTIONS(RSA_PRIVATE_KEY);
+
+ASN1_SEQUENCE(RSA_PRIVATE_KEY) = {
+	ASN1_SIMPLE(RSA_PRIVATE_KEY, version, ASN1_INTEGER),
+	ASN1_SIMPLE(RSA_PRIVATE_KEY, n, ASN1_INTEGER),
+	ASN1_SIMPLE(RSA_PRIVATE_KEY, e, ASN1_INTEGER),
+	ASN1_SIMPLE(RSA_PRIVATE_KEY, d, ASN1_INTEGER),
+	ASN1_SIMPLE(RSA_PRIVATE_KEY, p, ASN1_INTEGER),
+	ASN1_SIMPLE(RSA_PRIVATE_KEY, q, ASN1_INTEGER),
+	ASN1_SIMPLE(RSA_PRIVATE_KEY, exp1, ASN1_INTEGER),
+	ASN1_SIMPLE(RSA_PRIVATE_KEY, exp2, ASN1_INTEGER),
+	ASN1_SIMPLE(RSA_PRIVATE_KEY, coeff, ASN1_INTEGER)
+} ASN1_SEQUENCE_END(RSA_PRIVATE_KEY)
+IMPLEMENT_ASN1_FUNCTIONS(RSA_PRIVATE_KEY)
+
+void print(const ASN1_INTEGER* str, const char* item)
+{
+	fprintf(stdout, "name: %s, type: %d, length: %d, data: ", item, str->type, str->length);
+	for (int i = 0; i < str->length; ++i) {
+		fprintf(stdout, "%02X", str->data[i]);
+	}
+	fprintf(stdout, "\n");
+}
+
+int test_openssl_asn1_complex_decode()
+{
+#ifdef _MSC_VER
+	const char* name = "E:/GitCode/OpenSSL_Test/testdata/rsa_private_key.der";
+#else
+	const char* name = "testdata/rsa_private_key.der";
+#endif
+	FILE* fp = fopen(name, "rb");
+	if (!fp) {
+		fprintf(stderr, "fail to open file: %s\n", name);
+		return -1;
+	}
+	fseek(fp, 0, SEEK_END);
+	long length = ftell(fp);
+	rewind(fp);
+
+	std::unique_ptr<unsigned char[]> data(new unsigned char[length]);
+	fread(data.get(), 1, length, fp);
+	fclose(fp);
+
+	// data.get()[0]: type tag indicating SEQUENCE, 0x30
+	if (data.get()[0] != 0x30) {
+		fprintf(stderr, "it's type should be SEQUENCE: %s, %x\n", name, data.get()[0]);
+		return -1;
+	}
+
+	const unsigned char* p = data.get();
+	RSA_PRIVATE_KEY* key = d2i_RSA_PRIVATE_KEY(nullptr, &p, length);
+	if (!key) {
+		fprintf(stderr, "fail to d2i_RSA_PRIVATE_KEY\n");
+		return -1;
+	}
+
+	print(key->version, "version");
+	print(key->n, "n");
+	print(key->e, "e");
+	print(key->d, "d");
+	print(key->p, "p");
+	print(key->q, "q");
+	print(key->exp1, "exp1");
+	print(key->exp2, "exp2");
+	print(key->coeff, "coeff");
+
+	RSA_PRIVATE_KEY_free(key);
+
+	return 0;
+}
+
+} // namespace
+
+int test_openssl_asn1()
+{
+	int ret = -1;
+	//ret = test_openssl_asn1_simple_encode();
+	//ret = test_openssl_simple_decode();
+	ret = test_openssl_asn1_complex_decode();
+
+	return ret;
+}
 
 //////////////////////// AES GCM ///////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/106113185

@@ -5,6 +5,12 @@ echo "real_path: ${real_path}"
 dir_name=`dirname "${real_path}"`
 echo "dir_name: ${dir_name}"
 
+data_dir="testdata"
+if [ -d ${dir_name}/${data_dir} ]; then
+	rm -rf ${dir_name}/${data_dir}
+fi
+ln -s ${dir_name}/./../../${data_dir} ${dir_name}
+
 new_dir_name=${dir_name}/build
 if [[ -d ${new_dir_name} ]]; then
 	echo "directory already exists: ${new_dir_name}"

@@ -3,7 +3,7 @@
 
 int main()
 {
-	int ret = test_openssl_rc4();
+	int ret = test_openssl_asn1();
 
 	if (0 == ret) fprintf(stdout, "========== test success ==========\n");
 	else fprintf(stderr, "########## test fail ##########\n");
