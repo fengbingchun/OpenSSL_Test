@@ -1,8 +1,8 @@
 1. OpenSSL:
-	version: 1.0.1g
-	commit: b2d951e
-	date: 2014.04.08
-	url: https://github.com/openssl/openssl/releases?after=OpenSSL_1_0_2-beta3
+	version: 1.1.1g
+	commit: e2e09d9
+	date: 2020.04.21
+	url: https://github.com/openssl/openssl/releases/tag/OpenSSL_1_1_1g
 
 	windows编译源码:
 		$ perl Configure debug-VC-WIN64A no-asm --prefix=D:\DownLoad\openssl\win64_debug # 编译debug版本

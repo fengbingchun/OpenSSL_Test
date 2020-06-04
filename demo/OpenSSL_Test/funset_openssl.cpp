@@ -17,6 +17,117 @@
 #include <openssl/asn1.h>
 #include <openssl/asn1t.h>
 
+////////////////////////////// parse rsa pem file ///////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/106546012
+namespace {
+
+int test_openssl_parse_rsa_pem_private_key()
+{
+#ifdef _MSC_VER
+	const char* name = "E:/GitCode/OpenSSL_Test/testdata/rsa_private.pem";
+#else
+	const char* name = "testdata/rsa_private.pem";
+#endif
+
+	FILE *fp = fopen(name, "rb");
+	if (!fp) {
+		fprintf(stderr, "fail to open file: %s\n", name);
+		return -1;
+	}
+
+	RSA* rsa = PEM_read_RSAPrivateKey(fp, nullptr, nullptr, nullptr);
+	if (!rsa) {
+		fprintf(stderr, "fail to PEM_read_bio_RSAPrivateKey\n");
+		return -1;
+	}
+	fclose(fp);
+
+	ASN1_INTEGER* n = BN_to_ASN1_INTEGER(RSA_get0_n(rsa), nullptr); // modulus
+	ASN1_INTEGER* e = BN_to_ASN1_INTEGER(RSA_get0_e(rsa), nullptr); // public exponent
+	ASN1_INTEGER* d = BN_to_ASN1_INTEGER(RSA_get0_d(rsa), nullptr); // private exponent
+	ASN1_INTEGER* p = BN_to_ASN1_INTEGER(RSA_get0_p(rsa), nullptr); // prime 1
+	ASN1_INTEGER* q = BN_to_ASN1_INTEGER(RSA_get0_q(rsa), nullptr); // prime 2
+	ASN1_INTEGER* dmp1 = BN_to_ASN1_INTEGER(RSA_get0_dmp1(rsa), nullptr); // exponent 1
+	ASN1_INTEGER* dmq1 = BN_to_ASN1_INTEGER(RSA_get0_dmq1(rsa), nullptr); // exponent 2
+	ASN1_INTEGER* iqmp = BN_to_ASN1_INTEGER(RSA_get0_iqmp(rsa), nullptr); // coefficient
+	if (!n || !e || !d || !p || !q || !dmp1 || !dmq1 || !iqmp) {
+		fprintf(stderr, "fail to BN_to_ASN1_INTEGER\n");
+		return -1;
+	}
+
+	print(n, "n");
+	print(e, "e");
+	print(d, "d");
+	print(p, "p");
+	print(q, "q");
+	print(dmp1, "exp1");
+	print(dmq1, "exp2");
+	print(iqmp, "coeff");
+
+	ASN1_INTEGER_free(n);
+	ASN1_INTEGER_free(e);
+	ASN1_INTEGER_free(d);
+	ASN1_INTEGER_free(p);
+	ASN1_INTEGER_free(q);
+	ASN1_INTEGER_free(dmp1);
+	ASN1_INTEGER_free(dmq1);
+	ASN1_INTEGER_free(iqmp);
+	RSA_free(rsa);
+
+	return 0;
+}
+
+int test_openssl_parse_rsa_pem_public_key()
+{
+#ifdef _MSC_VER
+	const char* name = "E:/GitCode/OpenSSL_Test/testdata/rsa_public.pem";
+#else
+	const char* name = "testdata/rsa_public.pem";
+#endif
+
+	FILE *fp = fopen(name, "rb");
+	if (!fp) {
+		fprintf(stderr, "fail to open file: %s\n", name);
+		return -1;
+	}
+
+	// use PEM_read_RSA_PUBKEY instead of PEM_read_RSAPublicKey
+	// https://stackoverflow.com/questions/7818117/why-i-cant-read-openssl-generated-rsa-pub-key-with-pem-read-rsapublickey
+	// https://stackoverflow.com/questions/18039401/how-can-i-transform-between-the-two-styles-of-public-key-format-one-begin-rsa/29707204#29707204
+	RSA* rsa = PEM_read_RSA_PUBKEY(fp, nullptr, nullptr, nullptr);
+	if (!rsa) {
+		fprintf(stderr, "fail to PEM_read_bio_RSAPublicKey\n");
+		return -1;
+	}
+	fclose(fp);
+
+	ASN1_INTEGER* n = BN_to_ASN1_INTEGER(RSA_get0_n(rsa), nullptr); // modulus
+	ASN1_INTEGER* e = BN_to_ASN1_INTEGER(RSA_get0_e(rsa), nullptr); // public exponent
+	if (!n || !e) {
+		fprintf(stderr, "fail to BN_to_ASN1_INTEGER\n");
+		return -1;
+	}
+
+	print(n, "n");
+	print(e, "e");
+
+	ASN1_INTEGER_free(n);
+	ASN1_INTEGER_free(e);
+	RSA_free(rsa);
+
+	return 0;
+}
+
+} // namespace
+
+int test_openssl_parse_rsa_pem()
+{
+	int ret = -1;
+	//ret = test_openssl_parse_rsa_pem_private_key();
+	ret = test_openssl_parse_rsa_pem_public_key();
+	return ret;
+}
+
 ////////////////////////////// ASN.1 ///////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/106487696
 
@@ -99,41 +210,6 @@ int test_openssl_simple_decode()
 	ASN1_IA5STRING_free(str);
 
 	return 0;
-}
-
-typedef struct RSA_PRIVATE_KEY_st {
-	ASN1_INTEGER* version;
-	ASN1_INTEGER* n;
-	ASN1_INTEGER* e;
-	ASN1_INTEGER* d;
-	ASN1_INTEGER* p;
-	ASN1_INTEGER* q;
-	ASN1_INTEGER* exp1;
-	ASN1_INTEGER* exp2;
-	ASN1_INTEGER* coeff;
-} RSA_PRIVATE_KEY;
-DECLARE_ASN1_FUNCTIONS(RSA_PRIVATE_KEY);
-
-ASN1_SEQUENCE(RSA_PRIVATE_KEY) = {
-	ASN1_SIMPLE(RSA_PRIVATE_KEY, version, ASN1_INTEGER),
-	ASN1_SIMPLE(RSA_PRIVATE_KEY, n, ASN1_INTEGER),
-	ASN1_SIMPLE(RSA_PRIVATE_KEY, e, ASN1_INTEGER),
-	ASN1_SIMPLE(RSA_PRIVATE_KEY, d, ASN1_INTEGER),
-	ASN1_SIMPLE(RSA_PRIVATE_KEY, p, ASN1_INTEGER),
-	ASN1_SIMPLE(RSA_PRIVATE_KEY, q, ASN1_INTEGER),
-	ASN1_SIMPLE(RSA_PRIVATE_KEY, exp1, ASN1_INTEGER),
-	ASN1_SIMPLE(RSA_PRIVATE_KEY, exp2, ASN1_INTEGER),
-	ASN1_SIMPLE(RSA_PRIVATE_KEY, coeff, ASN1_INTEGER)
-} ASN1_SEQUENCE_END(RSA_PRIVATE_KEY)
-IMPLEMENT_ASN1_FUNCTIONS(RSA_PRIVATE_KEY)
-
-void print(const ASN1_INTEGER* str, const char* item)
-{
-	fprintf(stdout, "name: %s, type: %d, length: %d, data: ", item, str->type, str->length);
-	for (int i = 0; i < str->length; ++i) {
-		fprintf(stdout, "%02X", str->data[i]);
-	}
-	fprintf(stdout, "\n");
 }
 
 int test_openssl_asn1_complex_decode()
