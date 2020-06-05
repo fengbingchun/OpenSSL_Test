@@ -87,6 +87,9 @@ void print(const ASN1_INTEGER* str, const char* item)
 
 } // namespace
 
+int test_openssl_base64();
+int openssl_base64_encode(const unsigned char* in, int inlen, char* out, int* outlen, bool newline = true);
+int openssl_base64_decode(const char* in, int inlen, unsigned char* out, int* outlen, bool newline = true);
 int test_openssl_parse_rsa_pem();
 int test_openssl_asn1();
 int test_openssl_aes_gcm();

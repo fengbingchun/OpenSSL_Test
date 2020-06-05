@@ -17,6 +17,170 @@
 #include <openssl/asn1.h>
 #include <openssl/asn1t.h>
 
+////////////////////////////// base64 ///////////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/106571996
+int openssl_base64_encode(const unsigned char* in, int inlen, char* out, int* outlen, bool newline)
+{
+	BIO* b64 = BIO_new(BIO_f_base64());
+	BIO* bmem = BIO_new(BIO_s_mem());
+	if (!b64 || !bmem) {
+		fprintf(stderr, "fail to BIO_new\n");
+		return -1;
+	}
+	b64 = BIO_push(b64, bmem);
+
+	if (!newline)
+		BIO_set_flags(b64, BIO_FLAGS_BASE64_NO_NL); // ignore newlines, write everything in one line
+
+	*outlen = BIO_write(b64, in, inlen);
+	if (*outlen <= 0 || *outlen != inlen) {
+		fprintf(stderr, "fail to BIO_write\n");
+		return -1;
+	}
+	BIO_flush(b64);
+
+	BUF_MEM* buf = nullptr;
+	BIO_get_mem_ptr(b64, &buf);
+	*outlen = buf->length;
+	memcpy(out, buf->data, *outlen);
+
+	BIO_free_all(b64);
+	return 0;
+}
+
+int openssl_base64_decode(const char* in, int inlen, unsigned char* out, int* outlen, bool newline)
+{
+	BIO* b64 = BIO_new(BIO_f_base64());
+	BIO* bmem = BIO_new_mem_buf(in, inlen);
+	if (!b64 || !bmem) {
+		fprintf(stderr, "fail to BIO_new\n");
+		return -1;
+	}
+	b64 = BIO_push(b64, bmem);
+
+	if (!newline)
+		BIO_set_flags(b64, BIO_FLAGS_BASE64_NO_NL); // ignore newlines, write everything in one line
+
+	*outlen = BIO_read(b64, out, inlen);
+	if (*outlen <= 0) {
+		fprintf(stderr, "fail to BIO_read\n");
+		return -1;
+	}
+
+	BIO_free_all(b64);
+	return 0;
+}
+
+namespace {
+
+int test_openssl_base64_simple()
+{
+	const char* src = "https://blog.csdn.net/fengbingchun https://github.com//fengbingchun";
+	int inlen = strlen(src);
+	int outlen = (inlen + 2) / 3 * 4 + ((inlen + 2) / 3 * 4 + 63) / 64;
+	std::unique_ptr<char[]> out1(new char[outlen]);
+	bool newline = true;
+
+	int ret = openssl_base64_encode((const unsigned char*)src, inlen, out1.get(), &outlen, newline);
+	if (ret != 0) {
+		fprintf(stderr, "fail to openssl_base64_encode\n");
+		return -1;
+	}
+	fprintf(stdout, "encode result:\n");
+	std::for_each(out1.get(), out1.get() + outlen, [](char& c) { fprintf(stdout, "%c", c); });
+	fprintf(stdout, "\n");
+
+	std::unique_ptr<unsigned char[]> dst(new unsigned char[outlen]);
+	int outlen1 = 0;
+	ret = openssl_base64_decode(out1.get(), outlen, dst.get(), &outlen1, newline);
+	if (ret != 0) {
+		fprintf(stderr, "fail to openssl_base64_decode\n");
+		return -1;
+	}
+	fprintf(stdout, "decode result:\n");
+	std::for_each(dst.get(), dst.get() + outlen1, [](unsigned char& c) { fprintf(stdout, "%c", (char)c); });
+	fprintf(stdout, "\n");
+
+	dst[outlen1] = '\0';
+	if (strcmp(src, (const char*)dst.get()) == 0) {
+		fprintf(stdout, "test success\n");
+		return 0;
+	} else {
+		fprintf(stdout, "test fail\n");
+		return -1;
+	}
+}
+
+int test_openssl_base64_complex()
+{
+#ifdef _MSC_VER
+	const char* name = "E:/GitCode/OpenSSL_Test/testdata/rsa_private.pem";
+#else
+	const char* name = "testdata/rsa_private.pem";
+#endif
+	const char* begin = "-----BEGIN RSA PRIVATE KEY-----";
+	const char* end = "-----END RSA PRIVATE KEY-----";
+
+	FILE *fp = fopen(name, "rb");
+	if (!fp) {
+		fprintf(stderr, "fail to open file: %s\n", name);
+		return -1;
+	}
+	fseek(fp, 0, SEEK_END);
+	long length = ftell(fp);
+	rewind(fp);
+
+	std::unique_ptr<unsigned char[]> data(new unsigned char[length]);
+	fread(data.get(), 1, length, fp);
+	fclose(fp);
+
+	const char* p1 = strstr((const char*)data.get(), begin);
+	if (!p1) {
+		fprintf(stderr, "it's not a pem file: %s\n", name);
+		return -1;
+	}
+
+	const char* p2 = strstr((const char*)data.get(), end);
+	if (!p2) {
+		fprintf(stderr, "it's not a pem file: %s\n", name);
+		return -1;
+	}
+
+	bool newline = true;
+	long length2 = p2 - p1;
+	std::unique_ptr<unsigned char[]> decoded(new unsigned char[length2]);
+	int outlen = 0;
+	int ret = openssl_base64_decode(p1 + strlen(begin) + 1, length2, decoded.get(), &outlen, newline); // + 一个换行符长度
+
+	const unsigned char* p = decoded.get();
+	RSA_PRIVATE_KEY* key = d2i_RSA_PRIVATE_KEY(nullptr, &p, outlen);
+	if (!key) {
+		fprintf(stderr, "fail to d2i_RSA_PRIVATE_KEY\n");
+		return -1;
+	}
+
+	print(key->version, "version");
+	print(key->n, "n");
+	print(key->e, "e");
+	print(key->d, "d");
+	print(key->p, "p");
+	print(key->q, "q");
+	print(key->exp1, "exp1");
+	print(key->exp2, "exp2");
+	print(key->coeff, "coeff");
+
+	RSA_PRIVATE_KEY_free(key);
+	return 0;
+}
+
+} // namespace
+
+int test_openssl_base64()
+{
+	//return test_openssl_base64_simple();
+	return test_openssl_base64_complex();
+}
+
 ////////////////////////////// parse rsa pem file ///////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/106546012
 namespace {
