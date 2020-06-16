@@ -63,3 +63,6 @@
 	commit: acc70b1be60a6f321e2da618cd35d901b1a598a4
 	date: 2020.01.31
 	url: https://bearssl.org/
+8. base64url:
+	date: 2018.08.26
+	url: https://github.com/nkolban/esp32-snippets/tree/master/cloud/GCP/JWT

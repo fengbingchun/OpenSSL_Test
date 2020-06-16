@@ -4,8 +4,14 @@
 #include <openssl/asn1.h>
 #include <openssl/asn1t.h>
 
+int test_jwt(); // JSON WEB Token
+
+// base64url
+int test_base64url();
+
 // bearssl
 int test_bearssl_1();
+int test_bearssl_hs256(); // hmac sha256
 
 // socket
 int test_select_1();

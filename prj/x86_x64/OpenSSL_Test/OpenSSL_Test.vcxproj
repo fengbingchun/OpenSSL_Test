@@ -61,7 +61,7 @@
       <ObjectFileName>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\src;E:\GitCode\OpenSSL_Test\src\curl\include;E:\GitCode\OpenSSL_Test\src\bearssl\inc;E:\GitCode\OpenSSL_Test\prj\x86_x64\libopenssl;E:\GitCode\OpenSSL_Test\src\openssl\include;E:\GitCode\OpenSSL_Test\src\openssl\ms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\src;E:\GitCode\OpenSSL_Test\src\curl\include;E:\GitCode\OpenSSL_Test\src\bearssl\inc;E:\GitCode\OpenSSL_Test\prj\x86_x64\libopenssl;E:\GitCode\OpenSSL_Test\src\openssl\include;E:\GitCode\OpenSSL_Test\src\openssl\ms;E:\GitCode\OpenSSL_Test\src\base64url;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -91,7 +91,7 @@
       <ObjectFileName>.\../../../obj/rel/x86_x64/OpenSSL_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/rel/x86_x64/OpenSSL_Test\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\src\cppcodec;E:\GitCode\OpenSSL_Test\src;E:\GitCode\OpenSSL_Test\src\curl\include;E:\GitCode\OpenSSL_Test\src\bearssl\inc;E:\GitCode\OpenSSL_Test\prj\x86_x64\libopenssl;E:\GitCode\OpenSSL_Test\src\openssl\include;E:\GitCode\OpenSSL_Test\src\openssl\ms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\src\cppcodec;E:\GitCode\OpenSSL_Test\src;E:\GitCode\OpenSSL_Test\src\curl\include;E:\GitCode\OpenSSL_Test\src\bearssl\inc;E:\GitCode\OpenSSL_Test\prj\x86_x64\libopenssl;E:\GitCode\OpenSSL_Test\src\openssl\include;E:\GitCode\OpenSSL_Test\src\openssl\ms;E:\GitCode\OpenSSL_Test\src\base64url;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_b64.cpp" />
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_base64url.cpp" />
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_bearssl.cpp" />
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_cppcodec.cpp" />
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_curl.cpp" />
@@ -120,6 +121,7 @@
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\OpenSSL_Test.cpp" />
     <ClCompile Include="..\..\..\src\b64\decode.c" />
     <ClCompile Include="..\..\..\src\b64\encode.c" />
+    <ClCompile Include="..\..\..\src\base64url\base64url.cpp" />
     <ClCompile Include="..\..\..\src\http-parser\http_parser.c" />
   </ItemGroup>
   <ItemGroup>

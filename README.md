@@ -8,6 +8,7 @@
 	- curl: 7.44.0, [url](https://curl.haxx.se/)
 	- gRPC: v1.23.0 [GitHub](https://github.com/grpc/grpc)
 	- BearSSL: acc70b1 [BearSSL](https://bearssl.org/)
+	- base64url: [GitHub](https://github.com/nkolban/esp32-snippets/tree/master/cloud/GCP/JWT)
 - test code include:
 	- OpenSSL
 		- RC4 encrypt and decrypt
@@ -23,6 +24,7 @@
 	- gRPC's usage(only support Linux)
 	- socket
 	- BearSSL's usage
+	- base64url's usage
 
 **The project support platform:** 
 - windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.

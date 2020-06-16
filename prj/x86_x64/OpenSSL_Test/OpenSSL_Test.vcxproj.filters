@@ -51,6 +51,12 @@
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_bearssl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_base64url.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\base64url\base64url.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\demo\OpenSSL_Test\funset.hpp">

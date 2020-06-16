@@ -16,6 +16,78 @@
 #include <openssl/evp.h>
 #include <openssl/asn1.h>
 #include <openssl/asn1t.h>
+#include "base64url.h"
+
+////////////////////////////// JWT(JSON WEB Token) //////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/106786010
+int test_jwt()
+{
+	// encode header
+	const char* header = "{\"alg\":\"HS256\",\"typ\":\"JWT\",\"id\":\"fengbingchun\"}";
+	int length_header = strlen(header);
+	int length_encoded_header = (length_header + 2) / 3 * 4;
+	std::unique_ptr<char[]> encoded_header(new char[length_encoded_header]);
+	int ret = base64url_encode((const unsigned char*)header, length_header, encoded_header.get());
+	if (ret != BASE64_OK) {
+		fprintf(stderr, "fail to encode header: %s\n", header);
+		return -1;
+	}
+	fprintf(stdout, "encoded header: %s\n", encoded_header.get());
+
+	// encode payload
+	const char* payload = "{\"csdn\":\"https://blog.csdn.net/fengbingchun\",\"github\":\"https://github.com//fengbingchun\"}";
+	int length_payload = strlen(payload);
+	int length_encoded_payload = (length_payload + 2) / 3 * 4;
+	std::unique_ptr<char[]> encoded_payload(new char[length_encoded_payload]);
+	ret = base64url_encode((const unsigned char*)payload, length_payload, encoded_payload.get());
+	if (ret != BASE64_OK) {
+		fprintf(stderr, "fail to encode payload: %s\n", payload);
+		return -1;
+	}
+	fprintf(stdout, "encoded payload: %s\n", encoded_payload.get());
+
+	// signature
+	std::string buffer;
+	buffer.append(encoded_header.get(), strlen(encoded_header.get()));
+	buffer.append(".");
+	buffer.append(encoded_payload.get(), strlen(encoded_payload.get()));
+
+	//const unsigned char key[] = { // 32 bytes
+	//	0xee, 0xbc, 0x1f, 0x57, 0x48, 0x7f, 0x51, 0x92, 0x1c, 0x04, 0x65, 0x66,
+	//	0x5f, 0x8a, 0xe6, 0xd1, 0x65, 0x8b, 0xb2, 0x6d, 0xe6, 0xf8, 0xa0, 0x69,
+	//	0xa3, 0x52, 0x02, 0x93, 0xa5, 0x72, 0x07, 0x8f };
+	const char key[] = { // 32 bytes
+		'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-',
+		'!', '@', '#', '$', '%', '^', '&', '*', 'x', '(', ')', '_',
+		'=', 'Q', 'F', '{', '>', '<', '/', '?' };
+	std::unique_ptr<unsigned char[]> signature(new unsigned char[EVP_MAX_MD_SIZE]);
+
+	HMAC_CTX* ctx = HMAC_CTX_new();
+	HMAC_CTX_reset(ctx);
+	const EVP_MD* engine = EVP_sha256();
+
+	unsigned int length_signature;
+	HMAC_Init_ex(ctx, key, sizeof(key), engine, nullptr);
+	HMAC_Update(ctx, reinterpret_cast<const unsigned char*>(buffer.c_str()), buffer.length());
+	HMAC_Final(ctx, signature.get(), &length_signature);
+	HMAC_CTX_free(ctx);
+
+	// encode signature
+	int length_encoded_signature = (length_signature + 2) / 3 * 4;
+	std::unique_ptr<char[]> encoded_signature(new char[length_encoded_signature]);
+	ret = base64url_encode(signature.get(), length_signature, encoded_signature.get());
+	if (ret != BASE64_OK) {
+		fprintf(stderr, "fail to encode signature\n");
+		return -1;
+	}
+	fprintf(stdout, "encoded signature: %s\n", encoded_signature.get());
+
+	buffer.append(".");
+	buffer.append(encoded_signature.get(), strlen(encoded_signature.get()));
+	fprintf(stdout, "jwt result: %s\n", buffer.c_str());
+
+	return 0;
+}
 
 ////////////////////////////// base64 ///////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/106571996

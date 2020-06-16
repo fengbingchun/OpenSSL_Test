@@ -2,11 +2,84 @@
 #include <string.h>
 #include <string>
 #include <vector>
+#include <memory>
 #include "bearssl_hash.h"
 #include "bearssl_block.h"
+#include "bearssl_hmac.h"
+#include "base64url.h"
 
+////////////////////////// hmac-sha256, JWT(JSON WEB Token) ////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/106786010
+int test_bearssl_hs256()
+{
+	// encode header
+	const char* header = "{\"alg\":\"HS256\",\"typ\":\"JWT\",\"id\":\"fengbingchun\"}";
+	int length_header = strlen(header);
+	int length_encoded_header = (length_header + 2) / 3 * 4;
+	std::unique_ptr<char[]> encoded_header(new char[length_encoded_header]);
+	int ret = base64url_encode((const unsigned char*)header, length_header, encoded_header.get());
+	if (ret != BASE64_OK) {
+		fprintf(stderr, "fail to encode header: %s\n", header);
+		return -1;
+	}
+	fprintf(stdout, "encoded header: %s\n", encoded_header.get());
+
+	// encode payload
+	const char* payload = "{\"csdn\":\"https://blog.csdn.net/fengbingchun\",\"github\":\"https://github.com//fengbingchun\"}";
+	int length_payload = strlen(payload);
+	int length_encoded_payload = (length_payload + 2) / 3 * 4;
+	std::unique_ptr<char[]> encoded_payload(new char[length_encoded_payload]);
+	ret = base64url_encode((const unsigned char*)payload, length_payload, encoded_payload.get());
+	if (ret != BASE64_OK) {
+		fprintf(stderr, "fail to encode payload: %s\n", payload);
+		return -1;
+	}
+	fprintf(stdout, "encoded payload: %s\n", encoded_payload.get());
+
+	// signature
+	std::string buffer;
+	buffer.append(encoded_header.get(), strlen(encoded_header.get()));
+	buffer.append(".");
+	buffer.append(encoded_payload.get(), strlen(encoded_payload.get()));
+
+	//const unsigned char key[] = { // 32 bytes
+	//	0xee, 0xbc, 0x1f, 0x57, 0x48, 0x7f, 0x51, 0x92, 0x1c, 0x04, 0x65, 0x66,
+	//	0x5f, 0x8a, 0xe6, 0xd1, 0x65, 0x8b, 0xb2, 0x6d, 0xe6, 0xf8, 0xa0, 0x69,
+	//	0xa3, 0x52, 0x02, 0x93, 0xa5, 0x72, 0x07, 0x8f };
+	const char key[] = { // 32 bytes
+		'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-',
+		'!', '@', '#', '$', '%', '^', '&', '*', 'x', '(', ')', '_',
+		'=', 'Q', 'F', '{', '>', '<', '/', '?' };
+
+	br_hmac_key_context key_ctx;
+	br_hmac_context ctx;
+	br_hmac_key_init(&key_ctx, &br_sha256_vtable, key, sizeof(key));
+	br_hmac_init(&ctx, &key_ctx, 0);
+	size_t length_signature = br_hmac_size(&ctx);
+
+	br_hmac_update(&ctx, buffer.c_str(), buffer.length());
+	std::unique_ptr<unsigned char[]> signature(new unsigned char[length_signature]);
+	size_t length_signature2 = br_hmac_out(&ctx, signature.get());
+
+	// encode signature
+	int length_encoded_signature = (length_signature + 2) / 3 * 4;
+	std::unique_ptr<char[]> encoded_signature(new char[length_encoded_signature]);
+	ret = base64url_encode(signature.get(), length_signature, encoded_signature.get());
+	if (ret != BASE64_OK) {
+		fprintf(stderr, "fail to encode signature\n");
+		return -1;
+	}
+	fprintf(stdout, "encoded signature: %s\n", encoded_signature.get());
+
+	buffer.append(".");
+	buffer.append(encoded_signature.get(), strlen(encoded_signature.get()));
+	fprintf(stdout, "jwt result: %s\n", buffer.c_str());
+
+	return 0;
+}
+
+///////////////////////////////////////////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/104876336
-
 namespace {
 
 void print(const char* name, const unsigned char* data, unsigned int len)
