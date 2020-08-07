@@ -15,6 +15,9 @@ int test_bearssl_hs256(); // hmac sha256
 
 // socket
 int test_select_1();
+int test_get_hostname_ip();
+int test_socket_tcp_client();
+int test_socket_tcp_server();
 
 // test libcurl interface
 int test_curl_download_image_1();

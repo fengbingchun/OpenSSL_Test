@@ -100,7 +100,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>../../../lib/rel/x86_x64/OpenSSL_Test.exe</OutputFile>
       <AdditionalLibraryDirectories>E:\GitCode\OpenSSL_Test\lib\rel\x86_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libopenssl.lib;libcurl.lib;ws2_32.lib;libbearssl;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libopenssl.lib;libcurl.lib;ws2_32.lib;libbearssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/rel/x86_x64/OpenSSL_Test\OpenSSL_Test.bsc</OutputFile>
