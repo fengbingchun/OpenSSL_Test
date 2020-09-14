@@ -16,6 +16,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="..\..\..\demo\OpenSSL_Test\trust_anchors.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\..\demo\OpenSSL_Test\chain.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="..\..\..\demo\OpenSSL_Test\key.inc">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\OpenSSL_Test.cpp">

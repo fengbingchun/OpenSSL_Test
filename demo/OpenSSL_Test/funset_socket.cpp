@@ -28,50 +28,6 @@
 // Blog: https://blog.csdn.net/fengbingchun/article/details/107848160
 namespace {
 
-const char* server_ip_ = "10.4.96.33"; // 服务器ip
-const int server_port_ = 8888; // 服务器端口号,需确保此端口未被占用
-			       // linux: $ netstat -nap | grep 6666; kill -9 PID
-			       // windows: tasklist | findstr OpenSSL_Test.exe; taskkill /T /F /PID PID
-const int server_listen_queue_length_ = 100; // 服务器listen队列支持的最大长度
-
-#ifdef _MSC_VER
-// 每一个WinSock应用程序必须在开始操作前初始化WinSock的动态链接库(DLL)，并在操作完成后通知DLL进行清除操作
-class WinSockInit {
-public:
-	WinSockInit()
-	{
-		WSADATA wsaData;
-		// WinSock应用程序在开始时必须要调用WSAStartup函数，结束时调用WSACleanup函数
-		// WSAStartup函数必须是WinSock应用程序调用的第一个WinSock函数，否则，其它的WinSock API函数都将会失败并返回错误值
-		int ret = WSAStartup(MAKEWORD(2, 2), &wsaData);
-		if (ret != NO_ERROR)
-			fprintf(stderr, "fail to init winsock: %d\n", ret);
-	}
-
-	~WinSockInit()
-	{
-		WSACleanup();
-	}
-};
-
-static WinSockInit win_sock_init_;
-
-#define close(fd) closesocket(fd)
-#define socklen_t int
-#else
-#define SOCKET int
-#endif
-
-int get_error_code()
-{
-#ifdef _MSC_VER
-	auto err_code = WSAGetLastError();
-#else
-	auto err_code = errno;
-#endif
-	return err_code;
-}
-
 // 服务器端处理来自客户端的数据
 void calc_string_length(SOCKET fd)
 {

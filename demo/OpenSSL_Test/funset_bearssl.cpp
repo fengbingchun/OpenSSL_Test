@@ -1,12 +1,478 @@
-#include "funset.hpp"
+﻿#include "funset.hpp"
 #include <string.h>
 #include <string>
 #include <vector>
 #include <memory>
+#include <iostream>
+#include <algorithm>
+#include <system_error>
+
+#ifdef __linux__
+#include <sys/select.h>
+#include <sys/stat.h>
+#include <errno.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <netdb.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#endif
+
 #include "bearssl_hash.h"
 #include "bearssl_block.h"
 #include "bearssl_hmac.h"
+#include "bearssl_ssl.h"
 #include "base64url.h"
+
+#include "trust_anchors.inc"
+#include "key.inc"
+#include "chain.inc"
+
+//////////////////////////////// self signed certificate ///////////////////////////
+namespace {
+
+// reference: bearssl/samples: client_basic.c/server_basic.c
+// 客户端连接服务器：host为服务器端ipv4或域名，port为端口号
+SOCKET client_connect(const char *host, const char *port)
+{
+	struct addrinfo hints, *si;
+	memset(&hints, 0, sizeof hints);
+	hints.ai_family = AF_INET;
+	hints.ai_socktype = SOCK_STREAM;
+	// getaddrinfo: 获取主机信息，既支持ipv4也支持ipv6
+	auto err = getaddrinfo(host, port, &hints, &si);
+	if (err != 0) {
+		fprintf(stderr, "fail to getaddrinfo: %s\n", gai_strerror(err));
+		return INVALID_SOCKET;
+	}
+
+	SOCKET fd = INVALID_SOCKET;
+	struct addrinfo* p = nullptr;
+	for (p = si; p != nullptr; p = p->ai_next) {
+		struct sockaddr* sa = (struct sockaddr *)p->ai_addr;
+		if (sa->sa_family != AF_INET) // 仅处理AF_INET
+			continue;
+
+		struct in_addr addr;
+		addr.s_addr = ((struct sockaddr_in *)(p->ai_addr))->sin_addr.s_addr;
+		// inet_ntoa: 将二进制类型的IP地址转换为字符串类型
+		fprintf(stdout, "server ip: %s, family: %d, socktype: %d, protocol: %d\n",
+			inet_ntoa(addr), p->ai_family, p->ai_socktype, p->ai_protocol);
+
+		// 创建流式套接字
+		fd = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+		if (fd < 0 || fd == INVALID_SOCKET) {
+			auto err_code = get_error_code();
+			std::error_code ec(err_code, std::system_category());
+			fprintf(stderr, "fail to socket: %d, error code: %d, message: %s\n", fd, err_code, ec.message().c_str());
+			continue;
+		}
+
+		// 连接，connect函数的第二参数是一个指向数据结构sockaddr的指针，其中包括客户端需要连接的服务器的目的端口和IP地址，以及协议类型
+#ifdef __linux__
+		auto ret = connect(fd, p->ai_addr, p->ai_addrlen); // 在windows上直接调用此语句会返回-1，还未查到原因?
+#else
+		struct sockaddr_in server_addr;
+		memset(&server_addr, 0, sizeof(server_addr));
+		server_addr.sin_family = AF_INET;
+		server_addr.sin_port = htons(server_port_);
+		auto ret = inet_pton(AF_INET, server_ip_, &server_addr.sin_addr);
+		if (ret != 1) {
+			fprintf(stderr, "fail to inet_pton: %d\n", ret);
+			return -1;
+		}
+		ret = connect(fd, (struct sockaddr*)&server_addr, sizeof(server_addr));
+#endif
+		if ( ret < 0) {
+			auto err_code = get_error_code();
+			std::error_code ec(err_code, std::system_category());
+			fprintf(stderr, "fail to connect: %d, error code: %d, message: %s\n", ret, err_code, ec.message().c_str());
+			close(fd);
+			continue;
+		}
+
+		break;
+	}
+
+	if (p == nullptr) {
+		freeaddrinfo(si);
+		fprintf(stderr, "fail to socket or connect\n");
+		return INVALID_SOCKET;
+	}
+
+	freeaddrinfo(si);
+	return fd;
+}
+
+// 接收数据
+int sock_read(void *ctx, unsigned char *buf, size_t len)
+{
+	for (;;) {
+#ifdef _MSC_VER
+		auto rlen = recv(*(int*)ctx, (char*)buf, len, 0);
+#else
+		auto rlen = recv(*(int*)ctx, (char*)buf, len, 0);
+#endif
+		//fprintf(stderr, "recv length: %d\n", rlen);
+		if (rlen <= 0) {
+			if (rlen < 0 && errno == EINTR) {
+				continue;
+			}
+
+			auto err_code = get_error_code();
+			std::error_code ec(err_code, std::system_category());
+			fprintf(stderr, "fail to recv: %d, err code: %d, message: %s\n", rlen, err_code, ec.message().c_str());
+			return -1;
+		}
+		return (int)rlen;
+	}
+}
+
+// 发送数据
+int sock_write(void *ctx, const unsigned char *buf, size_t len)
+{
+	for (;;) {
+#ifdef _MSC_VER
+		auto wlen = send(*(int *)ctx, (const char*)buf, len, 0);
+#else
+		// MSG_NOSIGNAL: 禁止send函数向系统发送异常消息
+		auto wlen = send(*(int *)ctx, buf, len, MSG_NOSIGNAL);
+#endif
+		//fprintf(stderr, "send length: %d\n", wlen);
+		if (wlen <= 0) {
+			if (wlen < 0 && errno == EINTR) {
+				continue;
+			}
+
+			auto err_code = get_error_code();
+			std::error_code ec(err_code, std::system_category());
+			fprintf(stderr, "fail to send: %d, err code: %d, message: %s\n", wlen, err_code, ec.message().c_str());
+			return -1;
+		}
+		return (int)wlen;
+	}
+}
+
+// 服务器端绑定、监听
+SOCKET server_bind_listen(const char *host, const char *port)
+{
+	struct addrinfo hints, *si;
+	memset(&hints, 0, sizeof hints);
+	hints.ai_family = AF_INET;
+	hints.ai_socktype = SOCK_STREAM;
+	auto ret = getaddrinfo(host, port, &hints, &si);
+	if (ret != 0) {
+		fprintf(stderr, "fail to getaddrinfo: %s\n", gai_strerror(ret));
+		return INVALID_SOCKET;
+	}
+
+	SOCKET fd = INVALID_SOCKET;
+	struct addrinfo* p = nullptr;
+	for (p = si; p != nullptr; p = p->ai_next) {
+		struct sockaddr *sa = (struct sockaddr *)p->ai_addr;
+		if (sa->sa_family != AF_INET) // 仅处理AF_INET
+			continue;
+
+		struct in_addr addr;
+		addr.s_addr = ((struct sockaddr_in *)(p->ai_addr))->sin_addr.s_addr;
+		// inet_ntoa: 将二进制类型的IP地址转换为字符串类型
+		fprintf(stdout, "server ip: %s, family: %d, socktype: %d, protocol: %d\n",
+			inet_ntoa(addr), p->ai_family, p->ai_socktype, p->ai_protocol);
+
+		// 创建流式套接字
+		fd = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+		if (fd < 0 || fd == INVALID_SOCKET) {
+			auto err_code = get_error_code();
+			std::error_code ec(err_code, std::system_category());
+			fprintf(stderr, "fail to socket: %d, error code: %d, message: %s\n", fd, err_code, ec.message().c_str());
+			continue;
+		}
+
+		int opt = 1;
+#ifdef _MSC_VER
+		ret = setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&opt, sizeof opt);
+#else
+		ret = setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof opt);
+#endif
+		if (ret < 0) {
+			fprintf(stderr, "fail to setsockopt: send\n");
+			return INVALID_SOCKET;
+		}
+
+		// 绑定地址端口
+		ret = bind(fd, sa, sizeof(*sa));
+		if (ret < 0) {
+			auto err_code = get_error_code();
+			std::error_code ec(err_code, std::system_category());
+			fprintf(stderr, "fail to bind: %d, error code: %d, message: %s\n", ret, err_code, ec.message().c_str());
+			close(fd);
+			continue;
+		}
+
+		break;
+	}
+
+	if (p == nullptr) {
+		freeaddrinfo(si);
+		fprintf(stderr, "fail to socket or bind\n");
+		return INVALID_SOCKET;
+	}
+
+	freeaddrinfo(si);
+
+	ret = listen(fd, server_listen_queue_length_);
+	if (ret < 0) {
+		auto err_code = get_error_code();
+		std::error_code ec(err_code, std::system_category());
+		fprintf(stderr, "fail to listen: %d, error code: %d, message: %s\n", ret, err_code, ec.message().c_str());
+		close(fd);
+		return INVALID_SOCKET;
+	}
+
+	return fd;
+}
+
+// 服务器端接收客户端的连接
+SOCKET server_accept(SOCKET server_fd)
+{
+	struct sockaddr_in sa;
+	socklen_t sa_len = sizeof sa;
+	auto fd = accept(server_fd, (struct sockaddr*)&sa, &sa_len);
+	if (fd < 0) {
+		auto err_code = get_error_code();
+		std::error_code ec(err_code, std::system_category());
+		fprintf(stderr, "fail to accept: %d, error code: %d, message: %s\n", fd, err_code, ec.message().c_str());
+		return -1;
+	}
+
+	if (sa.sin_family != AF_INET) {
+		fprintf(stderr, "fail: sa_family should be equal AF_INET: %d\n", sa.sin_family);
+		return -1;
+	}
+
+	struct in_addr addr;
+	addr.s_addr = sa.sin_addr.s_addr;
+	// inet_ntoa: 将二进制类型的IP地址转换为字符串类型
+	fprintf(stdout, "client ip: %s\n", inet_ntoa(addr));
+	return fd;
+}
+
+// Check whether we closed properly or not
+void check_ssl_error(const br_ssl_client_context& sc)
+{
+	if (br_ssl_engine_current_state(&sc.eng) == BR_SSL_CLOSED) {
+		auto ret = br_ssl_engine_last_error(&sc.eng);
+		if (ret == 0) {
+			fprintf(stdout, "closed properly\n");
+		} else {
+			fprintf(stderr, "SSL error %d\n", ret);
+		}
+	} else {
+		fprintf(stderr, "socket closed without proper SSL termination\n");
+	}
+}
+
+void check_ssl_error(const br_ssl_server_context& ss)
+{
+	if (br_ssl_engine_current_state(&ss.eng) == BR_SSL_CLOSED) {
+		auto ret = br_ssl_engine_last_error(&ss.eng);
+		if (ret == 0) {
+			fprintf(stdout, "closed properly\n");
+		} else {
+			fprintf(stderr, "SSL error %d\n", ret);
+		}
+	} else {
+		fprintf(stderr, "socket closed without proper SSL termination\n");
+	}
+}
+
+} // namespace
+
+int test_bearssl_self_signed_certificate_client()
+{
+#ifdef _MSC_VER
+	init_trust_anchors();
+#endif
+
+	const char* host = server_ip_;
+	const char* port = std::to_string(server_port_).c_str();
+
+	// Open the socket to the target server
+	SOCKET fd = client_connect(host, port);
+	if (fd < 0 || fd == INVALID_SOCKET) {
+		fprintf(stderr, "fail to client connect: %d\n", fd);
+		return -1;
+	}
+
+	// Initialise the client context
+	br_ssl_client_context sc;
+	br_x509_minimal_context xc;
+	br_ssl_client_init_full(&sc, &xc, TAs, TAs_NUM);
+
+	// Set the I/O buffer to the provided array
+	unsigned char iobuf[BR_SSL_BUFSIZE_BIDI];
+	br_ssl_engine_set_buffer(&sc.eng, iobuf, sizeof iobuf, 1);
+
+	// Reset the client context, for a new handshake
+	// 若设置br_ssl_client_reset函数的第二个参数为nullptr，则客户端无需验证服务器端的ip或域名,
+	// 若第二个参数不为nullptr，则这里的host与使用命令生成server.csr时的CN要保持一致
+	auto ret = br_ssl_client_reset(&sc, host/*nullptr*/, 0);
+	if ( ret == 0) {
+		check_ssl_error(sc);
+		fprintf(stderr, "fail to br_ssl_client_reset: %d\n", ret);
+		return -1;
+	}
+
+	// Initialise the simplified I/O wrapper context
+	br_sslio_context ioc;
+	br_sslio_init(&ioc, &sc.eng, sock_read, &fd, sock_write, &fd);
+
+	// Write application data unto a SSL connection
+	const char* source_buffer = "https://blog.csdn.net/fengbingchun";
+	auto length = strlen(source_buffer) + 1; // 以空字符作为发送结束的标志
+	ret = br_sslio_write_all(&ioc, source_buffer, length);
+	if (ret < 0) {
+		check_ssl_error(sc);
+		fprintf(stderr, "fail to br_sslio_write_all: %d\n", ret);
+		return -1;
+	}
+
+	// SSL is a buffered protocol: we make sure that all our request bytes are sent onto the wire
+	ret = br_sslio_flush(&ioc);
+	if (ret < 0) {
+		check_ssl_error(sc);
+		fprintf(stderr, "fail to br_sslio_flush: %d\n", ret);
+		return -1;
+	}
+
+	// Read the server's response
+	std::vector<char> vec;
+	for (;;) {
+		unsigned char tmp[512];
+		ret = br_sslio_read(&ioc, tmp, sizeof tmp);
+		if (ret < 0) {
+			check_ssl_error(sc);
+			fprintf(stderr, "fail to br_sslio_read: %d\n", ret);
+			return -1;
+		}
+
+		bool flag = false;
+		std::for_each(tmp, tmp + ret, [&flag, &vec](const char& c) {
+			if (c == '\0') flag = true; // 以空字符作为接收结束的标志
+			else vec.emplace_back(c);
+		});
+
+		if (flag == true) break;
+	}
+
+	fprintf(stdout, "server's response: ");
+	std::for_each(vec.data(), vec.data() + vec.size(), [](const char& c){
+		fprintf(stdout, "%c", c);
+	});
+	fprintf(stdout, "\n");
+
+	// Close the SSL connection
+	if (fd >= 0) {
+		ret = br_sslio_close(&ioc);
+		if (ret < 0) {
+			check_ssl_error(sc);
+			fprintf(stderr, "fail to br_sslio_close: %d\n", ret);
+			return -1;
+		}
+	}
+
+	// Close the socket
+	close(fd);
+
+	return 0;
+}
+
+int test_bearssl_self_signed_certificate_server()
+{
+	// Open the server socket
+	SOCKET fd = server_bind_listen(server_ip_, std::to_string(server_port_).c_str());
+	if (fd < 0 || fd == INVALID_SOCKET) {
+		fprintf(stderr, "fail to server_bind_listen: %d\n", fd);
+		return -1;
+	}
+
+	// Process each client, one at a time
+	for (;;) {
+		SOCKET fd2 = server_accept(fd);
+		if (fd2 < 0 || fd2 == INVALID_SOCKET) {
+			fprintf(stderr, "fail to server_accept: %d\n", fd2);
+			return -1;
+		}
+
+		// Initialise the context with the cipher suites and algorithms
+		// SSL server profile: full_rsa
+		br_ssl_server_context sc;
+		br_ssl_server_init_full_rsa(&sc, SERVER_CHAIN, SERVER_CHAIN_LEN, &SERVER_RSA);
+
+		// Set the I/O buffer to the provided array
+		unsigned char iobuf[BR_SSL_BUFSIZE_BIDI];
+		br_ssl_engine_set_buffer(&sc.eng, iobuf, sizeof iobuf, 1);
+
+		// Reset the server context, for a new handshake
+		auto ret = br_ssl_server_reset(&sc);
+		if (ret == 0) {
+			check_ssl_error(sc);
+			fprintf(stderr, "fail to br_ssl_server_reset: %d\n", ret);
+			return -1;
+		}
+
+		// Initialise the simplified I/O wrapper context
+		br_sslio_context ioc;
+		br_sslio_init(&ioc, &sc.eng, sock_read, &fd2, sock_write, &fd2);
+
+		std::vector<char> vec;
+		for (;;) {
+			unsigned char tmp[512];
+			ret = br_sslio_read(&ioc, tmp, sizeof tmp);
+			if (ret < 0) {
+				check_ssl_error(sc);
+				fprintf(stderr, "fail to br_sslio_read: %d\n", ret);
+				return -1;
+			}
+
+			bool flag = false;
+			std::for_each(tmp, tmp + ret, [&flag, &vec](const char& c) {
+				if (c == '\0') flag = true; // 以空字符作为接收结束的标志
+				else vec.emplace_back(c);
+			});
+
+			if (flag == true) break;
+		}
+
+		fprintf(stdout, "message from the client: ");
+		std::for_each(vec.data(), vec.data() + vec.size(), [](const char& c){
+			fprintf(stdout, "%c", c);
+		});
+		fprintf(stdout, "\n");
+
+		// Write a response and close the connection
+		auto str = std::to_string(vec.size());
+		std::vector<char> vec2(str.size() + 1);
+		memcpy(vec2.data(), str.data(), str.size());
+		vec2[str.size()] = '\0'; // 以空字符作为发送结束的标志
+		ret = br_sslio_write_all(&ioc, vec2.data(), vec2.size());
+		if (ret < 0) {
+			check_ssl_error(sc);
+			fprintf(stderr, "fail to br_sslio_write_all: %d\n", ret);
+			return -1;
+		}
+		ret = br_sslio_close(&ioc);
+		if (ret < 0) {
+			check_ssl_error(sc);
+			fprintf(stderr, "fail to br_sslio_close: %d\n", ret);
+			return -1;
+		}
+
+		close(fd2);
+	}
+
+	return 0;
+}
 
 ////////////////////////// hmac-sha256, JWT(JSON WEB Token) ////////////////////
 // Blog: https://blog.csdn.net/fengbingchun/article/details/106786010

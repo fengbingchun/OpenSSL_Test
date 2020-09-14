@@ -107,6 +107,9 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\..\..\demo\OpenSSL_Test\chain.inc" />
+    <None Include="..\..\..\demo\OpenSSL_Test\key.inc" />
+    <None Include="..\..\..\demo\OpenSSL_Test\trust_anchors.inc" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
