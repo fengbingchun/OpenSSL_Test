@@ -29,6 +29,7 @@
 #include "chain.inc"
 
 //////////////////////////////// self signed certificate ///////////////////////////
+// Blog: https://blog.csdn.net/fengbingchun/article/details/108593942
 namespace {
 
 // reference: bearssl/samples: client_basic.c/server_basic.c
@@ -286,12 +287,58 @@ void check_ssl_error(const br_ssl_server_context& ss)
 	}
 }
 
+// reference: bearssl/samples/custom_profile.c
+void set_ssl_engine_suites(br_ssl_client_context sc)
+{
+	static const uint16_t suites[] = {
+		BR_TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
+		BR_TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256,
+		BR_TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+		BR_TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+		BR_TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
+		BR_TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+		BR_TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,
+		BR_TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,
+		BR_TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,
+		BR_TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,
+		BR_TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
+		BR_TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,
+		BR_TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,
+		BR_TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,
+		BR_TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256,
+		BR_TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256,
+		BR_TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384,
+		BR_TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384,
+		BR_TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,
+		BR_TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,
+		BR_TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384,
+		BR_TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384,
+		BR_TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,
+		BR_TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,
+		BR_TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA,
+		BR_TLS_ECDH_RSA_WITH_AES_256_CBC_SHA,
+		BR_TLS_RSA_WITH_AES_128_GCM_SHA256,
+		BR_TLS_RSA_WITH_AES_256_GCM_SHA384,
+		BR_TLS_RSA_WITH_AES_128_CBC_SHA256,
+		BR_TLS_RSA_WITH_AES_256_CBC_SHA256,
+		BR_TLS_RSA_WITH_AES_128_CBC_SHA,
+		BR_TLS_RSA_WITH_AES_256_CBC_SHA,
+		BR_TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,
+		BR_TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,
+		BR_TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,
+		BR_TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA,
+		BR_TLS_RSA_WITH_3DES_EDE_CBC_SHA
+	};
+
+	br_ssl_engine_set_suites(&sc.eng, suites, (sizeof suites) / (sizeof suites[0]));
+}
+
 } // namespace
 
 int test_bearssl_self_signed_certificate_client()
 {
 #ifdef _MSC_VER
-	init_trust_anchors();
+	init_server_trust_anchors();
 #endif
 
 	const char* host = server_ip_;
@@ -307,7 +354,12 @@ int test_bearssl_self_signed_certificate_client()
 	// Initialise the client context
 	br_ssl_client_context sc;
 	br_x509_minimal_context xc;
-	br_ssl_client_init_full(&sc, &xc, TAs, TAs_NUM);
+	br_ssl_client_init_full(&sc, &xc, SERVER_TAs, SERVER_TAs_NUM);
+
+	set_ssl_engine_suites(sc);
+
+	// 以下单条语句用于双向认证中
+	br_ssl_client_set_single_rsa(&sc, CLIENT_CHAIN, CLIENT_CHAIN_LEN, &CLIENT_RSA, br_rsa_pkcs1_sign_get_default());
 
 	// Set the I/O buffer to the provided array
 	unsigned char iobuf[BR_SSL_BUFSIZE_BIDI];
@@ -389,6 +441,10 @@ int test_bearssl_self_signed_certificate_client()
 
 int test_bearssl_self_signed_certificate_server()
 {
+#ifdef _MSC_VER
+	init_client_trust_anchors();
+#endif
+
 	// Open the server socket
 	SOCKET fd = server_bind_listen(server_ip_, std::to_string(server_port_).c_str());
 	if (fd < 0 || fd == INVALID_SOCKET) {
@@ -408,6 +464,16 @@ int test_bearssl_self_signed_certificate_server()
 		// SSL server profile: full_rsa
 		br_ssl_server_context sc;
 		br_ssl_server_init_full_rsa(&sc, SERVER_CHAIN, SERVER_CHAIN_LEN, &SERVER_RSA);
+
+		// 以下8条语句用于双向认证中
+		br_x509_minimal_context xc;
+		br_x509_minimal_init(&xc, &br_sha1_vtable, CLIENT_TAs, CLIENT_TAs_NUM);
+		br_ssl_engine_set_default_rsavrfy(&sc.eng);
+		br_ssl_engine_set_default_ecdsa(&sc.eng);
+		br_x509_minimal_set_rsa(&xc, br_rsa_pkcs1_vrfy_get_default());
+		br_x509_minimal_set_ecdsa(&xc, br_ec_get_default(), br_ecdsa_vrfy_asn1_get_default());
+		br_ssl_engine_set_x509(&sc.eng, &xc.vtable);
+		br_ssl_server_set_trust_anchor_names_alt(&sc, CLIENT_TAs, CLIENT_TAs_NUM);
 
 		// Set the I/O buffer to the provided array
 		unsigned char iobuf[BR_SSL_BUFSIZE_BIDI];
