@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcurl", "libcurl\libcurl.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libbearssl", "libbearssl\libbearssl.vcxproj", "{292F0C64-7546-4586-803F-24CB9162FDC4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libssh2", "libssh2\libssh2.vcxproj", "{DB8F59DB-7827-4B58-BD6C-5A9D7F60876F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,9 @@ Global
 		{292F0C64-7546-4586-803F-24CB9162FDC4}.Debug|x64.ActiveCfg = Debug|x64
 		{292F0C64-7546-4586-803F-24CB9162FDC4}.Release|x64.ActiveCfg = Release|x64
 		{292F0C64-7546-4586-803F-24CB9162FDC4}.Release|x64.Build.0 = Release|x64
+		{DB8F59DB-7827-4B58-BD6C-5A9D7F60876F}.Debug|x64.ActiveCfg = Debug|x64
+		{DB8F59DB-7827-4B58-BD6C-5A9D7F60876F}.Release|x64.ActiveCfg = Release|x64
+		{DB8F59DB-7827-4B58-BD6C-5A9D7F60876F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

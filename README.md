@@ -5,10 +5,11 @@
 	- OpenSSL: 1.1.1g, [GitHub](https://github.com/openssl/openssl/releases/tag/OpenSSL_1_1_1g)
 	- b64: [GitHub](https://github.com/littlstar/b64.c)
 	- http-parser: [GitHub](https://github.com/nodejs/http-parser)
-	- curl: 7.44.0, [url](https://curl.haxx.se/)
+	- curl: 7.82.0, [GitHub](https://github.com/curl/curl)
 	- gRPC: v1.23.0 [GitHub](https://github.com/grpc/grpc)
 	- BearSSL: acc70b1 [BearSSL](https://bearssl.org/)
 	- base64url: [GitHub](https://github.com/nkolban/esp32-snippets/tree/master/cloud/GCP/JWT)
+	- libssh2: 1.10.0 [GitHub](https://github.com/libssh2/libssh2)
 - test code include:
 	- OpenSSL
 		- RC4 encrypt and decrypt

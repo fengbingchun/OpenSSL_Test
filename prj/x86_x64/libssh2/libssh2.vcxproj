@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\libssh2\src\blf.h" />
+    <ClInclude Include="..\..\..\src\libssh2\src\channel.h" />
+    <ClInclude Include="..\..\..\src\libssh2\src\comp.h" />
+    <ClInclude Include="..\..\..\src\libssh2\src\crypto.h" />
+    <ClInclude Include="..\..\..\src\libssh2\src\libssh2_priv.h" />
+    <ClInclude Include="..\..\..\src\libssh2\src\mac.h" />
+    <ClInclude Include="..\..\..\src\libssh2\src\misc.h" />
+    <ClInclude Include="..\..\..\src\libssh2\src\packet.h" />
+    <ClInclude Include="..\..\..\src\libssh2\src\session.h" />
+    <ClInclude Include="..\..\..\src\libssh2\src\sftp.h" />
+    <ClInclude Include="..\..\..\src\libssh2\src\transport.h" />
+    <ClInclude Include="..\..\..\src\libssh2\src\userauth.h" />
+    <ClInclude Include="..\..\..\src\libssh2\src\wincng.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\libssh2\src\agent.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\agent_win.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\bcrypt_pbkdf.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\blowfish.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\channel.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\comp.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\crypt.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\global.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\hostkey.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\keepalive.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\kex.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\knownhost.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\mac.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\misc.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\packet.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\pem.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\publickey.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\scp.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\session.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\sftp.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\transport.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\userauth.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\version.c" />
+    <ClCompile Include="..\..\..\src\libssh2\src\wincng.c" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DB8F59DB-7827-4B58-BD6C-5A9D7F60876F}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libssh2</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>.\../../../obj/dbg/x86_x64/libssh2\</OutDir>
+    <IntDir>.\../../../obj/dbg/x86_x64/libssh2\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>.\../../../obj/rel/x86_x64/libssh2\</OutDir>
+    <IntDir>.\../../../obj/rel/x86_x64/libssh2\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;LIBSSH2_WINCNG;LIBSSH2_DH_GEX_NEW=1;LIBSSH2_WIN32;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;LIBSSH2_CLEAR_MEMORY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\prj\x86_x64\libssh2;E:\GitCode\OpenSSL_Test\src\libssh2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x86_x64/libssh2/libssh2.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../obj/dbg/x86_x64/libssh2\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../obj/dbg/x86_x64/libssh2\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../obj/dbg/x86_x64/libssh2\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>../../../lib/dbg/x86_x64/libssh2.lib</OutputFile>
+    </Lib>
+    <Bscmake>
+      <OutputFile>.\../../../obj/dbg/x86_x64/libssh2\libssh2.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;LIBSSH2_WINCNG;LIBSSH2_DH_GEX_NEW=1;LIBSSH2_WIN32;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;LIBSSH2_CLEAR_MEMORY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\prj\x86_x64\libssh2;E:\GitCode\OpenSSL_Test\src\libssh2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>.\../../../obj/rel/x86_x64/libssh2/libssh2.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../obj/rel/x86_x64/libssh2\</AssemblerListingLocation>
+      <ObjectFileName>.\../../../obj/rel/x86_x64/libssh2\</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../obj/rel/x86_x64/libssh2\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <OutputFile>../../../lib/rel/x86_x64/libssh2.lib</OutputFile>
+    </Lib>
+    <Bscmake>
+      <OutputFile>.\../../../obj/rel/x86_x64/libssh2\libssh2.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

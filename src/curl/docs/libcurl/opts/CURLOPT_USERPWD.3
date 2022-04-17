@@ -5,11 +5,11 @@
 .\" *                            | (__| |_| |  _ <| |___
 .\" *                             \___|\___/|_| \_\_____|
 .\" *
-.\" * Copyright (C) 1998 - 2014, Daniel Stenberg, <daniel@haxx.se>, et al.
+.\" * Copyright (C) 1998 - 2021, Daniel Stenberg, <daniel@haxx.se>, et al.
 .\" *
 .\" * This software is licensed as described in the file COPYING, which
 .\" * you should have received as part of this distribution. The terms
-.\" * are also available at http://curl.haxx.se/docs/copyright.html.
+.\" * are also available at https://curl.se/docs/copyright.html.
 .\" *
 .\" * You may opt to use, copy, modify, merge, publish, distribute and/or sell
 .\" * copies of the Software, and permit persons to whom the Software is
@@ -20,20 +20,23 @@
 .\" *
 .\" **************************************************************************
 .\"
-.TH CURLOPT_USERPWD 3 "17 Jun 2014" "libcurl 7.37.0" "curl_easy_setopt options"
+.TH CURLOPT_USERPWD 3 "November 26, 2021" "libcurl 7.82.0" "curl_easy_setopt options"
+
 .SH NAME
 CURLOPT_USERPWD \- user name and password to use in authentication
 .SH SYNOPSIS
+.nf
 #include <curl/curl.h>
 
 CURLcode curl_easy_setopt(CURL *handle, CURLOPT_USERPWD, char *userpwd);
+.fi
 .SH DESCRIPTION
-Pass a char * as parameter, pointing to a zero terminated login details string
+Pass a char * as parameter, pointing to a null-terminated login details string
 for the connection. The format of which is: [user name]:[password].
 
 When using Kerberos V5 authentication with a Windows based server, you should
 specify the user name part with the domain name in order for the server to
-successfully obtain a Kerberos Ticket. If you don't then the initial part of
+successfully obtain a Kerberos Ticket. If you do not then the initial part of
 the authentication handshake may fail.
 
 When using NTLM, the user name can be specified simply as the user name
@@ -61,12 +64,26 @@ SMTP options.
 The user and password strings are not URL decoded, so there's no way to send
 in a user name containing a colon using this option. Use
 \fICURLOPT_USERNAME(3)\fP for that, or include it in the URL.
+
+The application does not have to keep the string around after setting this
+option.
 .SH DEFAULT
 NULL
 .SH PROTOCOLS
 Most
 .SH EXAMPLE
-TODO
+.nf
+CURL *curl = curl_easy_init();
+if(curl) {
+  curl_easy_setopt(curl, CURLOPT_URL, "https://example.com/foo.bin");
+
+  curl_easy_setopt(curl, CURLOPT_USERPWD, "clark:kent");
+
+  ret = curl_easy_perform(curl);
+
+  curl_easy_cleanup(curl);
+}
+.fi
 .SH AVAILABILITY
 Always
 .SH RETURN VALUE
@@ -74,3 +91,4 @@ Returns CURLE_OK on success or
 CURLE_OUT_OF_MEMORY if there was insufficient heap space.
 .SH "SEE ALSO"
 .BR CURLOPT_USERNAME "(3), " CURLOPT_PASSWORD "(3), "
+.BR CURLOPT_PROXYUSERPWD "(3), "

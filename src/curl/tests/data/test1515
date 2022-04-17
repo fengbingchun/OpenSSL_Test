@@ -32,6 +32,10 @@ Content-Length: 6
 
 hello
 </data2>
+<datacheck>
+hello
+hello
+</datacheck>
 </reply>
 
 <client>
@@ -39,13 +43,13 @@ hello
 http
 </server>
 <tool>
-lib1515
+lib%TESTNUMBER
 </tool>
 <name>
 caching of manual libcurl DNS entries after DNS cache timeout
 </name>
 <command>
-/path/1515 %HOSTIP %HTTPPORT
+path/%TESTNUMBER %HOSTIP %HTTPPORT
 </command>
 </client>
 

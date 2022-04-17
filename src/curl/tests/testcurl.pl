@@ -6,11 +6,11 @@
 #                            | (__| |_| |  _ <| |___
 #                             \___|\___/|_| \_\_____|
 #
-# Copyright (C) 1998 - 2015, Daniel Stenberg, <daniel@haxx.se>, et al.
+# Copyright (C) 1998 - 2022, Daniel Stenberg, <daniel@haxx.se>, et al.
 #
 # This software is licensed as described in the file COPYING, which
 # you should have received as part of this distribution. The terms
-# are also available at http://curl.haxx.se/docs/copyright.html.
+# are also available at https://curl.se/docs/copyright.html.
 #
 # You may opt to use, copy, modify, merge, publish, distribute and/or sell
 # copies of the Software, and permit persons to whom the Software is
@@ -31,8 +31,8 @@
 # at a regular interval. The output is suitable to be mailed to
 # curl-autocompile@haxx.se to be dealt with automatically (make sure the
 # subject includes the word "autobuild" as the mail gets silently discarded
-# otherwise).  The most current build status (with a resonable backlog) will
-# be published on the curl site, at http://curl.haxx.se/auto/
+# otherwise).  The most current build status (with a reasonable backlog) will
+# be published on the curl site, at https://curl.se/auto/
 
 # USAGE:
 # testcurl.pl [options] [curl-daily-name] > output
@@ -151,7 +151,7 @@ if ($^O eq 'MSWin32' || $targetos) {
     # If no target defined on Win32 lets assume vc
     $targetos = 'vc';
   }
-  if ($targetos =~ /vc/ || $targetos =~ /borland/ || $targetos =~ /watcom/) {
+  if ($targetos =~ /vc/ || $targetos =~ /borland/) {
     $binext = '.exe';
     $libext = '.lib';
   }
@@ -161,21 +161,11 @@ if ($^O eq 'MSWin32' || $targetos) {
       $libext = '.a';
     }
   }
-  elsif ($targetos =~ /netware/) {
-    $configurebuild = 0;
-    $binext = '.nlm';
-    if ($^O eq 'MSWin32') {
-      $libext = '.lib';
-    }
-    else {
-      $libext = '.a';
-    }
-  }
 }
 
-if (($^O eq 'MSWin32' || $^O eq 'msys') &&
+if (($^O eq 'MSWin32' || $^O eq 'cygwin' || $^O eq 'msys') &&
     ($targetos =~ /vc/ || $targetos =~ /mingw32/ ||
-     $targetos =~ /borland/ || $targetos =~ /watcom/)) {
+     $targetos =~ /borland/)) {
 
   # Set these things only when building ON Windows and for Win32 platform.
   # FOR Windows since we might be cross-compiling on another system. Non-
@@ -306,7 +296,7 @@ if (!$desc) {
 if (!$confopts) {
   if ($infixed < 4) {
     print "please enter your additional arguments to configure\n";
-    print "examples: --with-ssl --enable-debug --enable-ipv6 --with-krb4\n";
+    print "examples: --with-openssl --enable-debug --enable-ipv6\n";
     $confopts = <>;
     chomp $confopts;
   }
@@ -481,21 +471,13 @@ if ($git) {
     open(LOG, ">$buildlog") or die;
     while (<F>) {
       my $ll = $_;
-      # ignore messages pertaining to third party m4 files we don't care
-      next if ($ll =~ /aclocal\/gtk\.m4/);
-      next if ($ll =~ /aclocal\/gtkextra\.m4/);
       print $ll;
       print LOG $ll;
     }
     close(F);
     close(LOG);
 
-    if (grepfile("^buildconf: OK", $buildlog)) {
-      logit "buildconf was successful";
-    }
-    else {
-      mydie "buildconf was NOT successful";
-    }
+    logit "buildconf was successful";
   }
   else {
     logit "buildconf was successful (dummy message)";
@@ -554,8 +536,6 @@ if(!$make) {
 }
 # force to 'nmake' for VC builds
 $make = "nmake" if ($targetos =~ /vc/);
-# force to 'wmake' for Watcom builds
-$make = "wmake" if ($targetos =~ /watcom/);
 logit "going with $make as make";
 
 # change to build dir
@@ -572,23 +552,13 @@ if ($configurebuild) {
   }
 } else {
   logit "copying files to build dir ...";
-  if (($^O eq 'MSWin32') && ($targetos !~ /netware/)) {
+  if ($^O eq 'MSWin32') {
     system("xcopy /s /q \"$CURLDIR\" .");
     system("buildconf.bat");
-  }
-  elsif ($targetos =~ /netware/) {
-    system("cp -afr $CURLDIR/* .");
-    system("cp -af $CURLDIR/Makefile.dist Makefile");
-    system("$make -i -C lib -f Makefile.netware prebuild");
-    system("$make -i -C src -f Makefile.netware prebuild");
-    if (-d "$CURLDIR/ares") {
-      system("$make -i -C ares -f Makefile.netware prebuild");
-    }
   }
   elsif ($^O eq 'linux') {
     system("cp -afr $CURLDIR/* .");
     system("cp -af $CURLDIR/Makefile.dist Makefile");
-    system("cp -af $CURLDIR/include/curl/curlbuild.h.dist ./include/curl/curlbuild.h");
     system("$make -i -C lib -f Makefile.$targetos prebuild");
     system("$make -i -C src -f Makefile.$targetos prebuild");
     if (-d "$CURLDIR/ares") {
@@ -607,20 +577,6 @@ if(-f "./libcurl.pc") {
     }
     close(F);
   }
-}
-
-if(-f "./include/curl/curlbuild.h") {
-  logit_spaced "display include/curl/curlbuild.h";
-  if(open(F, "<./include/curl/curlbuild.h")) {
-    while(<F>) {
-      my $ll = $_;
-      print $ll if(($ll =~ /^ *# *define *CURL_/) && ($ll !~ /__CURL_CURLBUILD_H/));
-    }
-    close(F);
-  }
-}
-else {
-  mydie "no curlbuild.h created/found";
 }
 
 logit_spaced "display lib/$confheader";

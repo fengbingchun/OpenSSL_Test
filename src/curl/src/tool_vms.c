@@ -5,11 +5,11 @@
  *                            | (__| |_| |  _ <| |___
  *                             \___|\___/|_| \_\_____|
  *
- * Copyright (C) 1998 - 2012, Daniel Stenberg, <daniel@haxx.se>, et al.
+ * Copyright (C) 1998 - 2021, Daniel Stenberg, <daniel@haxx.se>, et al.
  *
  * This software is licensed as described in the file COPYING, which
  * you should have received as part of this distribution. The terms
- * are also available at http://curl.haxx.se/docs/copyright.html.
+ * are also available at https://curl.se/docs/copyright.html.
  *
  * You may opt to use, copy, modify, merge, publish, distribute and/or sell
  * copies of the Software, and permit persons to whom the Software is
@@ -41,7 +41,7 @@ void decc$exit(int __status);
 
 static int vms_shell = -1;
 
-/* VMS has a DCL shell and and also has Unix shells ported to it.
+/* VMS has a DCL shell and also has Unix shells ported to it.
  * When curl is running under a Unix shell, we want it to be as much
  * like Unix as possible.
  */
@@ -56,7 +56,7 @@ int is_vms_shell(void)
   shell = getenv("SHELL");
 
   /* No shell, means DCL */
-  if(shell == NULL) {
+  if(!shell) {
     vms_shell = 1;
     return 1;
   }
@@ -122,13 +122,13 @@ void vms_special_exit(int code, int vms_show)
  */
 
 /* Structure to hold a DECC$* feature name and its desired value. */
-typedef struct {
+struct decc_feat_t {
   char *name;
   int value;
-} decc_feat_t;
+};
 
 /* Array of DECC$* feature names and their desired values. */
-static decc_feat_t decc_feat_array[] = {
+static const struct decc_feat_t decc_feat_array[] = {
   /* Preserve command-line case with SET PROCESS/PARSE_STYLE=EXTENDED */
   { "DECC$ARGV_PARSE_STYLE", 1 },
   /* Preserve case for file names on ODS5 disks. */
@@ -160,20 +160,20 @@ static void decc_init(void)
   for(i = 0; decc_feat_array[i].name != NULL; i++) {
 
     /* Get the feature index. */
-    feat_index = decc$feature_get_index( decc_feat_array[i].name);
+    feat_index = decc$feature_get_index(decc_feat_array[i].name);
 
     if(feat_index >= 0) {
       /* Valid item.  Collect its properties. */
-      feat_value = decc$feature_get_value( feat_index, 1);
-      feat_value_min = decc$feature_get_value( feat_index, 2);
-      feat_value_max = decc$feature_get_value( feat_index, 3);
+      feat_value = decc$feature_get_value(feat_index, 1);
+      feat_value_min = decc$feature_get_value(feat_index, 2);
+      feat_value_max = decc$feature_get_value(feat_index, 3);
 
       if((decc_feat_array[i].value >= feat_value_min) &&
          (decc_feat_array[i].value <= feat_value_max)) {
         /* Valid value.  Set it if necessary. */
         if(feat_value != decc_feat_array[i].value) {
-          sts = decc$feature_set_value( feat_index, 1,
-                                        decc_feat_array[i].value);
+          sts = decc$feature_set_value(feat_index, 1,
+                                       decc_feat_array[i].value);
         }
       }
       else {
@@ -216,4 +216,3 @@ int dmy_lib$initialize = (int) LIB$INITIALIZE;
 #endif /* __DECC && !__VAX && __CRTL_VER && __CRTL_VER >= 70301000 */
 
 #endif /* __VMS */
-

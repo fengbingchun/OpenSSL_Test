@@ -51,9 +51,10 @@
 	date: 2018.03.31
 	url: https://github.com/nodejs/http-parser/releases
 5. curl:
-	version: 7.44.0
-	date: 2015.08.12
-	url: https://curl.haxx.se/download.html
+	version: 7.82.0
+	commit: 64db5c5
+	date: 2022.03.05
+	url: https://github.com/curl/curl/releases/tag/curl-7_82_0
 6. gRPC:
 	version: v1.23.0
 	commit: 7c07649
@@ -66,3 +67,8 @@
 8. base64url:
 	date: 2018.08.26
 	url: https://github.com/nkolban/esp32-snippets/tree/master/cloud/GCP/JWT
+9. libssh2:
+	version: 1.10.0
+	commit: 635caa9
+	date: 2021.08.30
+	url: https://github.com/libssh2/libssh2/releases/tag/libssh2-1.10.0
