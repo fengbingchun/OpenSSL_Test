@@ -33,6 +33,7 @@ int test_socket_tcp_client();
 int test_socket_tcp_server();
 
 // test libcurl interface
+int test_curl_proxy_http();
 int test_curl_download_image_1();
 
 // test http-parser interface

@@ -57,7 +57,7 @@
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>
       </SDLCheck>
-      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\src\bearssl\inc;E:\GitCode\OpenSSL_Test\src\bearssl\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../src/bearssl/inc;../../../src/bearssl/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x86_x64/libbearssl/libbearssl.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/dbg/x86_x64/libbearssl\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/dbg/x86_x64/libbearssl\</ObjectFileName>
@@ -87,7 +87,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\src\bearssl\inc;E:\GitCode\OpenSSL_Test\src\bearssl\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../src/bearssl/inc;../../../src/bearssl/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>.\../../../obj/rel/x86_x64/libbearssl\libbearssl.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/rel/x86_x64/libbearssl\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/rel/x86_x64/libbearssl\</ObjectFileName>

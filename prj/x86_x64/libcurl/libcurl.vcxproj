@@ -354,7 +354,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;BUILDING_LIBCURL;USE_OPENSSL;USE_LIBSSH2;USE_IPV6;HAVE_LIBSSH2_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>
       </SDLCheck>
-      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\src\curl\include;E:\GitCode\OpenSSL_Test\src\curl\lib;E:\GitCode\OpenSSL_Test\src\libssh2\include;E:\GitCode\OpenSSL_Test\src\openssl\include;E:\GitCode\OpenSSL_Test\prj\x86_x64\libopenssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../src/curl/include;../../../src/curl/lib;../../../src/libssh2/include;../../../src/openssl/include;../../../prj/x86_x64/libopenssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x86_x64/libcurl/libcurl.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/dbg/x86_x64/libcurl\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/dbg/x86_x64/libcurl\</ObjectFileName>
@@ -372,7 +372,7 @@
       <ProgramDatabaseFile>../../../lib/dbg/x86_x64/libcurl.pdb</ProgramDatabaseFile>
       <ImportLibrary>../../../lib/dbg/x86_x64/libcurl.lib</ImportLibrary>
       <AdditionalDependencies>crypt32.lib;ws2_32.lib;wldap32.lib;libopenssl.lib;libssh2.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>E:\GitCode\OpenSSL_Test\lib\dbg\x86_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../../lib/dbg/x86_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/dbg/x86_x64/libcurl\libcurl.bsc</OutputFile>
@@ -390,7 +390,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;BUILDING_LIBCURL;USE_OPENSSL;USE_LIBSSH2;USE_IPV6;HAVE_LIBSSH2_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\src\libssh2\include;E:\GitCode\OpenSSL_Test\src\curl\include;E:\GitCode\OpenSSL_Test\src\curl\lib;E:\GitCode\OpenSSL_Test\src\openssl\include;E:\GitCode\OpenSSL_Test\prj\x86_x64\libopenssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../src/libssh2/include;../../../src/curl/include;../../../src/curl/lib;../../../src/openssl/include;../../../prj/x86_x64/libopenssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>.\../../../obj/rel/x86_x64/libcurl/libcurl.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/rel/x86_x64/libcurl\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/rel/x86_x64/libcurl\</ObjectFileName>
@@ -405,7 +405,7 @@
       <ProgramDatabaseFile>../../../lib/rel/x86_x64/libcurl.pdb</ProgramDatabaseFile>
       <ImportLibrary>../../../lib/rel/x86_x64/libcurl.lib</ImportLibrary>
       <AdditionalDependencies>crypt32.lib;ws2_32.lib;wldap32.lib;libopenssl.lib;libssh2.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>E:\GitCode\OpenSSL_Test\lib\rel\x86_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../../lib/rel/x86_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/rel/x86_x64/libcurl\libcurl.bsc</OutputFile>

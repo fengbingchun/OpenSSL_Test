@@ -62,7 +62,7 @@
       <AssemblerListingLocation>.\../../../obj/dbg/x86_x64/libopenssl\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/dbg/x86_x64/libopenssl\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/dbg/x86_x64/libopenssl\</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\prj\x86_x64\libopenssl;E:\GitCode\OpenSSL_Test\src\openssl\include;E:\GitCode\OpenSSL_Test\src\openssl;E:\GitCode\OpenSSL_Test\src\openssl\crypto\ec\curve448\arch_32;E:\GitCode\OpenSSL_Test\src\openssl\crypto\ec\curve448;E:\GitCode\OpenSSL_Test\src\openssl\crypto\modes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../prj/x86_x64/libopenssl;../../../src/openssl/include;../../../src/openssl;../../../src/openssl/crypto/ec/curve448/arch_32;../../../src/openssl/crypto/ec/curve448;../../../src/openssl/crypto/modes</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -93,7 +93,7 @@
       <AssemblerListingLocation>.\../../../obj/rel/x86_x64/libopenssl\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/rel/x86_x64/libopenssl\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/rel/x86_x64/libopenssl\</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\prj\x86_x64\libopenssl;E:\GitCode\OpenSSL_Test\src\openssl\include;E:\GitCode\OpenSSL_Test\src\openssl;E:\GitCode\OpenSSL_Test\src\openssl\crypto\ec\curve448\arch_32;E:\GitCode\OpenSSL_Test\src\openssl\crypto\ec\curve448;E:\GitCode\OpenSSL_Test\src\openssl\crypto\modes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../prj/x86_x64/libopenssl;../../../src/openssl/include;../../../src/openssl;../../../src/openssl/crypto/ec/curve448/arch_32;../../../src/openssl/crypto/ec/curve448;../../../src/openssl/crypto/modes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

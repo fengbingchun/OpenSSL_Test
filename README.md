@@ -22,6 +22,7 @@
 	- base64's usage
 	- http-parser's usage
 	- curl's usage
+		- proxy server
 	- gRPC's usage(only support Linux)
 	- socket
 	- BearSSL's usage

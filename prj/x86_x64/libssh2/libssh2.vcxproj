@@ -95,7 +95,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;LIBSSH2_WINCNG;LIBSSH2_DH_GEX_NEW=1;LIBSSH2_WIN32;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;LIBSSH2_CLEAR_MEMORY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\prj\x86_x64\libssh2;E:\GitCode\OpenSSL_Test\src\libssh2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../prj/x86_x64/libssh2;../../../src/libssh2/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>.\../../../obj/dbg/x86_x64/libssh2/libssh2.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/dbg/x86_x64/libssh2\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/dbg/x86_x64/libssh2\</ObjectFileName>
@@ -121,7 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;LIBSSH2_WINCNG;LIBSSH2_DH_GEX_NEW=1;LIBSSH2_WIN32;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;LIBSSH2_CLEAR_MEMORY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>E:\GitCode\OpenSSL_Test\prj\x86_x64\libssh2;E:\GitCode\OpenSSL_Test\src\libssh2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../prj/x86_x64/libssh2;../../../src/libssh2/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>.\../../../obj/rel/x86_x64/libssh2/libssh2.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\../../../obj/rel/x86_x64/libssh2\</AssemblerListingLocation>
       <ObjectFileName>.\../../../obj/rel/x86_x64/libssh2\</ObjectFileName>

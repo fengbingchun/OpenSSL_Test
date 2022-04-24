@@ -71,5 +71,8 @@
     <ClInclude Include="..\..\..\demo\OpenSSL_Test\funset.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\demo\OpenSSL_Test\common.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
