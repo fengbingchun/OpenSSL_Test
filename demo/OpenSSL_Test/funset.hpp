@@ -31,6 +31,8 @@ int test_select_1();
 int test_get_hostname_ip();
 int test_socket_tcp_client();
 int test_socket_tcp_server();
+int test_socket_udp_client();
+int test_socket_udp_server();
 
 // test libcurl interface
 int test_curl_proxy_http();

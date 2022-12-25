@@ -1,4 +1,4 @@
-#include "funset.hpp"
+﻿#include "funset.hpp"
 #include <string.h>
 #include <memory>
 #include <iostream>
@@ -24,6 +24,145 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #endif
+
+// Blog: https://blog.csdn.net/fengbingchun/article/details/128437186
+// reference: https://www.binarytides.com/udp-socket-programming-in-winsock/
+#define SERVER_IP "127.0.0.1" // ip address of udp server
+#define BUFFER_MAX_LEN 512 // Max length of buffer
+#define SERVER_PORT 12345 // The port on which to listen for incoming data
+
+int test_socket_udp_client()
+{
+#ifdef _MSC_VER
+	// Initialise winsock
+	WSADATA wsa;
+	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
+		fprintf(stderr, "Failed. Error Code : %d", WSAGetLastError());
+		return -1;
+	}
+
+	// create socket
+	SOCKET s;
+	if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == SOCKET_ERROR) {
+		fprintf(stderr, "socket failed with error code : %d", WSAGetLastError());
+		return -1;
+	}
+
+	// setup address structure
+	struct sockaddr_in si_other;
+	int slen = sizeof(si_other);
+	memset((char*)&si_other, 0, sizeof(si_other));
+	si_other.sin_family = AF_INET;
+	si_other.sin_port = htons(SERVER_PORT);
+	si_other.sin_addr.S_un.S_addr = inet_addr(SERVER_IP);
+
+	char buf[BUFFER_MAX_LEN];
+	char message[BUFFER_MAX_LEN];
+
+	// start communication
+	while (1) {
+		fprintf(stdout, "Enter message : ");
+		gets_s(message);
+
+		// send the message
+		if (sendto(s, message, strlen(message), 0, (struct sockaddr*)&si_other, slen) == SOCKET_ERROR) {
+			fprintf(stderr, "sendto failed with error code : %d", WSAGetLastError());
+			return -1;
+		}
+
+		// receive a reply and print it
+		// clear the buffer by filling null, it might have previously received data
+		memset(buf, '\0', BUFFER_MAX_LEN);
+		// try to receive some data, this is a blocking call
+		if (recvfrom(s, buf, BUFFER_MAX_LEN, 0, (struct sockaddr*)&si_other, &slen) == SOCKET_ERROR) {
+			fprintf(stderr, "recvfrom failed with error code : %d", WSAGetLastError());
+			return -1;
+		}
+
+		puts(buf);
+	}
+
+	closesocket(s);
+	WSACleanup();
+	return 0;
+#else
+	fprintf(stderr, "the Linux platform is not yet implemented\n");
+	return -1;
+#endif
+}
+
+int test_socket_udp_server()
+{
+#ifdef _MSC_VER
+	// Initialise winsock
+	WSADATA wsa;
+	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
+		fprintf(stderr, "Failed. Error Code : %d", WSAGetLastError());
+		return -1;
+	}
+
+	// Create a socket
+	SOCKET s;
+	if ((s = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
+		fprintf(stderr, "Could not create socket : %d", WSAGetLastError());
+		return -1;
+	}
+
+	// Prepare the sockaddr_in structure
+	struct sockaddr_in server, si_other;
+	server.sin_family = AF_INET;
+	server.sin_addr.s_addr = INADDR_ANY;
+	server.sin_port = htons(SERVER_PORT);
+
+	// Bind
+	if (bind(s, (struct sockaddr*)&server, sizeof(server)) == SOCKET_ERROR) {
+		fprintf(stderr, "Bind failed with error code : %d", WSAGetLastError());
+		return -1;
+	}
+
+	// keep listening for data
+	int slen = sizeof(si_other);
+	int recv_len;
+	char buf[BUFFER_MAX_LEN];
+
+	while (1) {
+		fprintf(stdout, "Waiting for data...");
+		fflush(stdout);
+
+		// clear the buffer by filling null, it might have previously received data
+		memset(buf, '\0', BUFFER_MAX_LEN);
+
+		//try to receive some data, this is a blocking call
+		if ((recv_len = recvfrom(s, buf, BUFFER_MAX_LEN, 0, (struct sockaddr*)&si_other, &slen)) == SOCKET_ERROR) {
+			fprintf(stderr, "recvfrom failed with error code : %d", WSAGetLastError());
+			return -1;
+		}
+
+		// print details of the client/peer and the data received
+		fprintf(stdout, "Received packet from %s:%d\n", inet_ntoa(si_other.sin_addr), ntohs(si_other.sin_port));
+		fprintf(stdout, "Data: %s\n", buf);
+
+		int i = 0;
+		while (buf[i]) {
+			buf[i] = toupper(buf[i]);
+			++i;
+		}
+
+		// now reply the client with the same data
+		if (sendto(s, buf, recv_len, 0, (struct sockaddr*)&si_other, slen) == SOCKET_ERROR) {
+			fprintf(stderr, "sendto failed with error code : %d", WSAGetLastError());
+			return -1;
+		}
+	}
+
+	closesocket(s);
+	WSACleanup();
+	return 0;
+#else
+	fprintf(stderr, "the Linux platform is not yet implemented\n");
+	return -1;
+#endif
+}
 
 // Blog: https://blog.csdn.net/fengbingchun/article/details/107848160
 namespace {
