@@ -1,6 +1,5 @@
 # OpenSSL_Test
 **The main role of the project: OpenSSL's usage**  
-**Note: Clone this repository to E:/GitCode/ in windows**
 - open source library version:
 	- OpenSSL: 1.1.1g, [GitHub](https://github.com/openssl/openssl/releases/tag/OpenSSL_1_1_1g)
 	- b64: [GitHub](https://github.com/littlstar/b64.c)
@@ -29,7 +28,7 @@
 	- base64url's usage
 
 **The project support platform:** 
-- windows7/10 64 bits: It can be directly build with VS2013 in windows7/10 64bits.
+- windows10 64 bits: It can be directly build with VS2022 in windows10 64bits.
 - Linux: It supports cmake build(file position: prj/linux_cmake_OpenSSL_Test)
 - Linux: It supports cmake build(file position: prj/linux_cmake_gRPC_Test)
 

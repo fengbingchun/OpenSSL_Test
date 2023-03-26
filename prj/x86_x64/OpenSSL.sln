@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenSSL_Test", "OpenSSL_Test\OpenSSL_Test.vcxproj", "{45DF6F4F-DEA0-4527-B187-2E33845A0EF4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1561F9EA-FB03-49D7-BF90-F3C339D6F8F2} = {1561F9EA-FB03-49D7-BF90-F3C339D6F8F2}
+		{292F0C64-7546-4586-803F-24CB9162FDC4} = {292F0C64-7546-4586-803F-24CB9162FDC4}
+		{9379F50E-FF63-4187-AAEF-4F69BDFD8EB5} = {9379F50E-FF63-4187-AAEF-4F69BDFD8EB5}
+		{DB8F59DB-7827-4B58-BD6C-5A9D7F60876F} = {DB8F59DB-7827-4B58-BD6C-5A9D7F60876F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libopenssl", "libopenssl\libopenssl.vcxproj", "{9379F50E-FF63-4187-AAEF-4F69BDFD8EB5}"
 EndProject
@@ -39,5 +45,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {393ABF68-4FE5-42BD-859A-2804159F3A38}
 	EndGlobalSection
 EndGlobal

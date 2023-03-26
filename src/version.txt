@@ -15,9 +15,9 @@
 		$ make insall
 
 	在Windows上vs工程添加源码编译调整记录：
-	(1). 将通过perl编译生成的include下的opensslconf.h拷贝到E:/GitCode/OpenSSL_Test/prj/x86_x64/libopenssl/openssl目录下
-	(2). 将通过perl编译的原include下生成的bn_conf.h和dso_conf.h拷贝到E:/GitCode/OpenSSL_Test/prj/x86_x64/libopenssl/crypto目录下
-	(3). 将通过perl编译生成的buildinf.h拷贝到E:/GitCode/OpenSSL_Test/prj/x86_x64/libopenssl目录下
+	(1). 将通过perl编译生成的include下的opensslconf.h拷贝到OpenSSL_Test/prj/x86_x64/libopenssl/openssl目录下
+	(2). 将通过perl编译的原include下生成的bn_conf.h和dso_conf.h拷贝到OpenSSL_Test/prj/x86_x64/libopenssl/crypto目录下
+	(3). 将通过perl编译生成的buildinf.h拷贝到OpenSSL_Test/prj/x86_x64/libopenssl目录下
 	(4). include/openssl/x509.h文件在# include <openssl/ossl_typ.h>语句之前，加入以下语句：
 		# ifdef _WIN32
 		#  undef X509_NAME

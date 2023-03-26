@@ -186,7 +186,7 @@ int test_openssl_base64_simple()
 int test_openssl_base64_complex()
 {
 #ifdef _MSC_VER
-	const char* name = "E:/GitCode/OpenSSL_Test/testdata/rsa_private.pem";
+	const char* name = "../../../testdata/rsa_private.pem";
 #else
 	const char* name = "testdata/rsa_private.pem";
 #endif
@@ -260,7 +260,7 @@ namespace {
 int test_openssl_parse_rsa_pem_private_key()
 {
 #ifdef _MSC_VER
-	const char* name = "E:/GitCode/OpenSSL_Test/testdata/rsa_private.pem";
+	const char* name = "../../../testdata/rsa_private.pem";
 #else
 	const char* name = "testdata/rsa_private.pem";
 #endif
@@ -316,7 +316,7 @@ int test_openssl_parse_rsa_pem_private_key()
 int test_openssl_parse_rsa_pem_public_key()
 {
 #ifdef _MSC_VER
-	const char* name = "E:/GitCode/OpenSSL_Test/testdata/rsa_public.pem";
+	const char* name = "../../../testdata/rsa_public.pem";
 #else
 	const char* name = "testdata/rsa_public.pem";
 #endif
@@ -394,7 +394,7 @@ int test_openssl_asn1_simple_encode()
 	fprintf(stdout, "encoded length: %d\n", encoded2_len);
 
 #ifdef _MSC_VER
-	const char* name = "E:/GitCode/OpenSSL_Test/testdata/simple2.der";
+	const char* name = "../../../testdata/simple2.der";
 #else
 	const char* name = "testdata/simple2.der";
 #endif
@@ -413,7 +413,7 @@ int test_openssl_asn1_simple_encode()
 int test_openssl_simple_decode()
 {
 #ifdef _MSC_VER
-	const char* name = "E:/GitCode/OpenSSL_Test/data/testsimple.der";
+	const char* name = "../../../data/testsimple.der";
 #else
 	const char* name = "data/testsimple.der";
 #endif
@@ -451,7 +451,7 @@ int test_openssl_simple_decode()
 int test_openssl_asn1_complex_decode()
 {
 #ifdef _MSC_VER
-	const char* name = "E:/GitCode/OpenSSL_Test/testdata/rsa_private_key.der";
+	const char* name = "../../../testdata/rsa_private_key.der";
 #else
 	const char* name = "testdata/rsa_private_key.der";
 #endif
