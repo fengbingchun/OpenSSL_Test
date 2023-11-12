@@ -16,3 +16,6 @@ prj/x86_x64/.vs/
 /src/openssl/build/
 /prj/linux_cmake_OpenSSL_Test/testdata
 src/.vscode
+src/sockpp/build
+src/sockpp/install
+.vscode

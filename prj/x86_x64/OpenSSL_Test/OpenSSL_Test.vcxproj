@@ -61,7 +61,7 @@
       <ObjectFileName>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/dbg/x86_x64/OpenSSL_Test\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>../../../src;../../../src/curl/include;../../../src/bearssl/inc;../../../prj/x86_x64/libopenssl;../../../src/openssl/include;../../../src/openssl/ms;../../../src/base64url;../../../lib/dbg/x86_x64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../src;../../../src/curl/include;../../../src/bearssl/inc;../../../prj/x86_x64/libopenssl;../../../src/openssl/include;../../../src/openssl/ms;../../../src/base64url;../../../lib/dbg/x86_x64;../../../src/sockpp/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -69,7 +69,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>../../../lib/dbg/x86_x64/OpenSSL_Test.exe</OutputFile>
       <AdditionalLibraryDirectories>../../../lib/dbg/x86_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libopenssl.lib;libcurl.lib;ws2_32.lib;libbearssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libsockpp.lib;libopenssl.lib;libcurl.lib;ws2_32.lib;libbearssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/dbg/x86_x64/OpenSSL_Test\OpenSSL_Test.bsc</OutputFile>
@@ -91,7 +91,7 @@
       <ObjectFileName>.\../../../obj/rel/x86_x64/OpenSSL_Test\</ObjectFileName>
       <ProgramDataBaseFileName>.\../../../obj/rel/x86_x64/OpenSSL_Test\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>../../../src/cppcodec;../../../src;../../../src/curl/include;../../../src/bearssl/inc;../../../prj/x86_x64/libopenssl;../../../src/openssl/include;../../../src/openssl/ms;../../../src/base64url;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../src/cppcodec;../../../src;../../../src/curl/include;../../../src/bearssl/inc;../../../prj/x86_x64/libopenssl;../../../src/openssl/include;../../../src/openssl/ms;../../../src/base64url;../../../src/sockpp/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -100,7 +100,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>../../../lib/rel/x86_x64/OpenSSL_Test.exe</OutputFile>
       <AdditionalLibraryDirectories>../../../lib/rel/x86_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libopenssl.lib;libcurl.lib;ws2_32.lib;libbearssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libopenssl.lib;libcurl.lib;ws2_32.lib;libbearssl.lib;libsockpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>.\../../../obj/rel/x86_x64/OpenSSL_Test\OpenSSL_Test.bsc</OutputFile>
@@ -121,6 +121,7 @@
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_http-parser.cpp" />
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_openssl.cpp" />
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_socket.cpp" />
+    <ClCompile Include="..\..\..\demo\OpenSSL_Test\funset_sockpp.cpp" />
     <ClCompile Include="..\..\..\demo\OpenSSL_Test\OpenSSL_Test.cpp" />
     <ClCompile Include="..\..\..\src\b64\decode.c" />
     <ClCompile Include="..\..\..\src\b64\encode.c" />

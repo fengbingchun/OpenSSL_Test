@@ -1,22 +1,12 @@
 PROJECT(OpenSSL_Test)
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 
-# support C++11
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-# support C++14, when gcc version > 5.1, use -std=c++14 instead of c++1y
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c17")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
-IF(NOT CMAKE_BUILD_TYPE)
-	SET(CMAKE_BUILD_TYPE "Release")
-	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O2")
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2")
-ELSE()
-	SET(CMAKE_BUILD_TYPE "Debug")
-	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -O2")
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -O2")
-ENDIF()
-MESSAGE(STATUS "cmake build type: ${CMAKE_BUILD_TYPE}")
+SET(CMAKE_BUILD_TYPE "Release")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O2")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2")
 
 ADD_DEFINITIONS(-D_DEFAULT_SOURCE=1) # fix bss_dgram.c: error: 'const struct in6_addr' has no member named 's6_addr32'
 
@@ -29,14 +19,9 @@ SET(PATH_SRC_CURL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src/curl)
 SET(PATH_SRC_HTTP_PARSER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src)
 SET(PATH_SRC_BEARSSL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src/bearssl)
 SET(PATH_SRC_BASE64URL_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src/base64url)
+SET(PATH_SRC_SOCKPP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/./../../src/sockpp)
 MESSAGE(STATUS "path test files: ${PATH_TEST_FILES}")
 
-SET(PATH_OPENCV /opt/opencv3.4.2)
-IF(EXISTS ${PATH_OPENCV})
-	MESSAGE(STATUS "Found OpenCV: ${PATH_OPENCV}")
-ELSE()
-	MESSAGE(FATAL_ERROR "Can not find OpenCV in ${PATH_OPENCV}")
-ENDIF()
 
 # head file search path
 INCLUDE_DIRECTORIES(
@@ -50,23 +35,16 @@ INCLUDE_DIRECTORIES(
 	${PATH_SRC_CURL_FILES}/build
 	${PATH_SRC_BEARSSL_FILES}/inc
 	${PATH_SRC_BASE64URL_FILES}
+	${PATH_SRC_SOCKPP_FILES}/install/release/include
+
 )
 
-# find opencv library
-FIND_LIBRARY(opencv_core NAMES opencv_core PATHS ${PATH_OPENCV}/lib NO_DEFAULT_PATH)
-FIND_LIBRARY(opencv_imgproc NAMES opencv_imgproc PATHS ${PATH_OPENCV}/lib NO_DEFAULT_PATH)
-FIND_LIBRARY(opencv_highgui NAMES opencv_highgui PATHS ${PATH_OPENCV}/lib NO_DEFAULT_PATH)
-FIND_LIBRARY(opencv_imgcodecs NAMES opencv_imgcodecs PATHS ${PATH_OPENCV}/lib NO_DEFAULT_PATH)
-FIND_LIBRARY(opencv_video NAMES opencv_video PATHS ${PATH_OPENCV}/lib NO_DEFAULT_PATH)
-FIND_LIBRARY(opencv_videoio NAMES opencv_videoio PATHS ${PATH_OPENCV}/lib NO_DEFAULT_PATH)
-FIND_LIBRARY(opencv_objdetect NAMES opencv_objdetect PATHS ${PATH_OPENCV}/lib NO_DEFAULT_PATH)
-FIND_LIBRARY(opencv_ml NAMES opencv_ml PATHS ${PATH_OPENCV}/lib NO_DEFAULT_PATH)
-MESSAGE(STATUS "opencv libraries: ${opencv_core} ${opencv_imgproc} ${opencv_highgui} ${opencv_imgcodecs} ${opencv_video} ${opencv_videoio} ${opencv_objdetect} ${opencv_ml}")
+FIND_PACKAGE(OpenCV)
 
-# find dep library
-SET(DEP_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/build CACHE PATH "dep library path")
-MESSAGE(STATUS "dep library dir: ${DEP_LIB_DIR}")
-LINK_DIRECTORIES(${DEP_LIB_DIR})
+LINK_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/build
+	${OpenCV_LIB_DIR}
+)
 
 # recursive query match files :*.cpp, *.cc, *.c
 FILE(GLOB_RECURSE TEST_CPP_LIST ${PATH_TEST_FILES}/*.cpp)
@@ -82,18 +60,12 @@ MESSAGE(STATUS "test cpp list: ${TEST_CPP_LIST} ${TEST_C_LIST} ${SRC_C_LIST}")
 ADD_EXECUTABLE(OpenSSL_Test ${TEST_CPP_LIST} ${TEST_CC_LIST} ${SRC_C_LIST})
 # add dependent library: static and dynamic
 TARGET_LINK_LIBRARIES(OpenSSL_Test
-	${DEP_LIB_DIR}/libcrypto.so.1.1
-	${DEP_LIB_DIR}/libssl.so.1.1
-	${DEP_LIB_DIR}/libcurl.so
-	${DEP_LIB_DIR}/libbearssl.so
-	${opencv_ml}
-	${opencv_core}
-	${opencv_imgproc}
-	${opencv_highgui}
-	${opencv_imgcodecs}
-	${opencv_video}
-	${opencv_videoio}
-	${opencv_objdetect}
+	crypto
+	ssl
+	curl
+	bearssl
+	${OpenCV_LIBS}
+	sockpp
 	pthread
 )
 

@@ -5,6 +5,10 @@ echo "real_path: ${real_path}"
 dir_name=`dirname "${real_path}"`
 echo "dir_name: ${dir_name}"
 
+echo "##### manually install dependent libraries #####"
+echo "sudo apt-get install libssl-dev" # libcurl need
+sleep 2
+
 data_dir="testdata"
 if [ -d ${dir_name}/${data_dir} ]; then
 	rm -rf ${dir_name}/${data_dir}
@@ -69,6 +73,29 @@ fi
 cp ${openssl_path}/build/install/lib/libcrypto.so.1.1 ${new_dir_name}
 cp ${openssl_path}/build/install/lib/libssl.so.1.1 ${new_dir_name}
 
+# build sockpp
+echo "========== start build sockpp =========="
+sockpp_path=${dir_name}/../../src/sockpp
+if [[ -f ${sockpp_path}/install/release/lib/libsockpp.a ]]; then
+	echo "sockpp static library already exists without recompiling"
+else
+	cd ${sockpp_path}
+    cmake \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DSOCKPP_BUILD_SHARED=OFF \
+        -DSOCKPP_BUILD_STATIC=ON \
+        -DSOCKPP_BUILD_EXAMPLES=ON \
+        -DCMAKE_INSTALL_PREFIX=install/release \
+        -Bbuild \
+        .
+
+    cmake --build build/ --target install --config release
+
+	cd -
+fi
+
+cp ${sockpp_path}/install/release/lib/libsockpp.a ${new_dir_name}
+
 rc=$?
 if [[ ${rc} != 0 ]]; then
 	echo "########## Error: some of thess commands have errors above, please check"
@@ -76,7 +103,7 @@ if [[ ${rc} != 0 ]]; then
 fi
 
 cd ${new_dir_name}
-cmake ..
+cmake -DOpenCV_DIR=/opt/opencv/4.8.1/release/lib/cmake/opencv4/ ..
 make
 
 cd -

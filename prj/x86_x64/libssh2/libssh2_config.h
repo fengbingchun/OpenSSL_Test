@@ -88,18 +88,18 @@
 * number of chars placed in cp excluding the trailing null char. So for
 * cp_max_len > 0 the return value is always < cp_max_len; for cp_max_len
 * <= 0 the return value is 0 (and no chars are written to cp). */
-static int snprintf(char * cp, int cp_max_len, const char * fmt, ...)
-{
-    va_list args;
-    int n;
-
-    if (cp_max_len < 2)
-        return 0;
-    va_start(args, fmt);
-    n = vsnprintf(cp, cp_max_len, fmt, args);
-    va_end(args);
-    return (n < cp_max_len) ? n : (cp_max_len - 1);
-}
+//static int snprintf(char * cp, int cp_max_len, const char * fmt, ...)
+//{
+//    va_list args;
+//    int n;
+//
+//    if (cp_max_len < 2)
+//        return 0;
+//    va_start(args, fmt);
+//    n = vsnprintf(cp, cp_max_len, fmt, args);
+//    va_end(args);
+//    return (n < cp_max_len) ? n : (cp_max_len - 1);
+//}
 
 #define HAVE_SNPRINTF
 #endif

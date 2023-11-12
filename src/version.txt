@@ -72,3 +72,8 @@
 	commit: 635caa9
 	date: 2021.08.30
 	url: https://github.com/libssh2/libssh2/releases/tag/libssh2-1.10.0
+10. sockpp:
+	version: 0.8.1
+	commit: 3b19748
+	date: 2023.01.31
+	url: https://github.com/fpagliughi/sockpp

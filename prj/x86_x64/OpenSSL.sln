@@ -5,6 +5,7 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenSSL_Test", "OpenSSL_Test\OpenSSL_Test.vcxproj", "{45DF6F4F-DEA0-4527-B187-2E33845A0EF4}"
 	ProjectSection(ProjectDependencies) = postProject
+		{11B78BDB-EEC6-4C89-975F-FA4E7ABB3B50} = {11B78BDB-EEC6-4C89-975F-FA4E7ABB3B50}
 		{1561F9EA-FB03-49D7-BF90-F3C339D6F8F2} = {1561F9EA-FB03-49D7-BF90-F3C339D6F8F2}
 		{292F0C64-7546-4586-803F-24CB9162FDC4} = {292F0C64-7546-4586-803F-24CB9162FDC4}
 		{9379F50E-FF63-4187-AAEF-4F69BDFD8EB5} = {9379F50E-FF63-4187-AAEF-4F69BDFD8EB5}
@@ -18,6 +19,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libbearssl", "libbearssl\libbearssl.vcxproj", "{292F0C64-7546-4586-803F-24CB9162FDC4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libssh2", "libssh2\libssh2.vcxproj", "{DB8F59DB-7827-4B58-BD6C-5A9D7F60876F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsockpp", "libsockpp\libsockpp.vcxproj", "{11B78BDB-EEC6-4C89-975F-FA4E7ABB3B50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +45,10 @@ Global
 		{DB8F59DB-7827-4B58-BD6C-5A9D7F60876F}.Debug|x64.ActiveCfg = Debug|x64
 		{DB8F59DB-7827-4B58-BD6C-5A9D7F60876F}.Release|x64.ActiveCfg = Release|x64
 		{DB8F59DB-7827-4B58-BD6C-5A9D7F60876F}.Release|x64.Build.0 = Release|x64
+		{11B78BDB-EEC6-4C89-975F-FA4E7ABB3B50}.Debug|x64.ActiveCfg = Debug|x64
+		{11B78BDB-EEC6-4C89-975F-FA4E7ABB3B50}.Debug|x64.Build.0 = Debug|x64
+		{11B78BDB-EEC6-4C89-975F-FA4E7ABB3B50}.Release|x64.ActiveCfg = Release|x64
+		{11B78BDB-EEC6-4C89-975F-FA4E7ABB3B50}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

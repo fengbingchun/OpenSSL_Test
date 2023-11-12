@@ -15,6 +15,10 @@
 #include <openssl/asn1.h>
 #include <openssl/asn1t.h>
 
+// sockpp
+int test_sockpp_client();
+int test_sockpp_server();
+
 int test_jwt(); // JSON WEB Token
 
 // base64url
@@ -139,7 +143,7 @@ public:
 static WinSockInit win_sock_init_;
 
 #define close(fd) closesocket(fd)
-#define socklen_t int
+//#define socklen_t int
 #else
 #define SOCKET int
 #endif
