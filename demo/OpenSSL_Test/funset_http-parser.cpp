@@ -426,7 +426,7 @@ int test_http_parser_url()
 
 { // get
 	int argc = 3;
-	char* argv[] = { "", "get", "https://blog.csdn.net/fengbingchun" };
+	const char* argv[] = {"", "get", "https://blog.csdn.net/fengbingchun"};
 
 	int connect = strcmp("connect", argv[1]) == 0 ? 1 : 0;
 	fprintf(stdout, "Parsing: %s, connect: %d\n", argv[2], connect);

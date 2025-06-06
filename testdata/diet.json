@@ -1,0 +1,150 @@
+{
+  "sets": {
+    "F": [
+      "Cheeseburger",
+      "Ham Sandwich",
+      "Hamburger",
+      "Fish Sandwich",
+      "Chicken Sandwich",
+      "Fries",
+      "Sausage Biscuit",
+      "Lowfat Milk",
+      "Orange Juice"
+    ],
+    "N": [
+      "Cal",
+      "Carbo",
+      "Protein",
+      "VitA",
+      "VitC",
+      "Calc",
+      "Iron"
+    ]
+  },
+  "params": {
+    "c": {
+      "Cheeseburger": 1.84,
+      "Ham Sandwich": 2.19,
+      "Hamburger": 1.84,
+      "Fish Sandwich": 1.44,
+      "Chicken Sandwich": 2.29,
+      "Fries": 0.77,
+      "Sausage Biscuit": 1.29,
+      "Lowfat Milk": 0.6,
+      "Orange Juice": 0.72
+    },
+    "V": {
+      "Cheeseburger": 4.0,
+      "Ham Sandwich": 7.5,
+      "Hamburger": 3.5,
+      "Fish Sandwich": 5.0,
+      "Chicken Sandwich": 7.3,
+      "Fries": 2.6,
+      "Sausage Biscuit": 4.1,
+      "Lowfat Milk": 8.0,
+      "Orange Juice": 12.0
+    },
+    "Vmax": 75.0,
+    "Nmin": {
+      "Cal": 2000.0,
+      "Carbo": 350.0,
+      "Protein": 55.0,
+      "VitA": 100.0,
+      "VitC": 100.0,
+      "Calc": 100.0,
+      "Iron": 100.0
+    },
+    "Nmax": {
+      "Cal": "inf",
+      "Carbo": 375.0,
+      "Protein": "inf",
+      "VitA": "inf",
+      "VitC": "inf",
+      "Calc": "inf",
+      "Iron": "inf"
+    },
+    "a": {
+      "Cheeseburger": {
+        "Cal": 510.0,
+        "Carbo": 34.0,
+        "Protein": 28.0,
+        "VitA": 15.0,
+        "VitC": 6.0,
+        "Calc": 30.0,
+        "Iron": 20.0
+      },
+      "Ham Sandwich": {
+        "Cal": 370.0,
+        "Carbo": 35.0,
+        "Protein": 24.0,
+        "VitA": 15.0,
+        "VitC": 10.0,
+        "Calc": 20.0,
+        "Iron": 20.0
+      },
+      "Hamburger": {
+        "Cal": 500.0,
+        "Carbo": 42.0,
+        "Protein": 25.0,
+        "VitA": 6.0,
+        "VitC": 2.0,
+        "Calc": 25.0,
+        "Iron": 20.0
+      },
+      "Fish Sandwich": {
+        "Cal": 370.0,
+        "Carbo": 38.0,
+        "Protein": 14.0,
+        "VitA": 2.0,
+        "VitC": 0.0,
+        "Calc": 15.0,
+        "Iron": 10.0
+      },
+      "Chicken Sandwich": {
+        "Cal": 400.0,
+        "Carbo": 42.0,
+        "Protein": 31.0,
+        "VitA": 8.0,
+        "VitC": 15.0,
+        "Calc": 15.0,
+        "Iron": 8.0
+      },
+      "Fries": {
+        "Cal": 220.0,
+        "Carbo": 26.0,
+        "Protein": 3.0,
+        "VitA": 0.0,
+        "VitC": 15.0,
+        "Calc": 0.0,
+        "Iron": 2.0
+      },
+      "Sausage Biscuit": {
+        "Cal": 345.0,
+        "Carbo": 27.0,
+        "Protein": 15.0,
+        "VitA": 4.0,
+        "VitC": 0.0,
+        "Calc": 20.0,
+        "Iron": 15.0
+      },
+      "Lowfat Milk": {
+        "Cal": 110.0,
+        "Carbo": 12.0,
+        "Protein": 9.0,
+        "VitA": 10.0,
+        "VitC": 4.0,
+        "Calc": 30.0,
+        "Iron": 0.0
+      },
+      "Orange Juice": {
+        "Cal": 80.0,
+        "Carbo": 20.0,
+        "Protein": 1.0,
+        "VitA": 2.0,
+        "VitC": 120.0,
+        "Calc": 2.0,
+        "Iron": 2.0
+      }
+    }
+  }
+}

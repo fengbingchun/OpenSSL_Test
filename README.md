@@ -10,6 +10,7 @@
 	- base64url: [GitHub](https://github.com/nkolban/esp32-snippets/tree/master/cloud/GCP/JWT)
 	- libssh2: 1.10.0 [GitHub](https://github.com/libssh2/libssh2)
 	- sockpp: 0.8.1 [GitHub](https://github.com/fpagliughi/sockpp)
+	- libhv: v1.3.3 [GitHub](https://github.com/ithewei/libhv)
 - test code include:
 	- OpenSSL
 		- RC4 encrypt and decrypt
@@ -28,6 +29,7 @@
 	- BearSSL's usage
 	- base64url's usage
 	- sockpp's usage
+	- libhv's usage
 
 **The project support platform:** 
 - windows10 64 bits: It can be directly build with VS2022 in windows10 64bits.

@@ -647,7 +647,7 @@ int test_bearssl_1()
 	// aes cbc encryption/decryption
 	static const char* const key = "012346789abcdef";
 	static const char* const iv_src = "ABCDEF9876543210";
-	char* data3_src = "!@#$%^&*()_-+={]";
+	constexpr char data3_src[]{ "!@#$%^&*()_-+={]" };
 
 	br_aes_big_cbcenc_keys cbcenc_ctx;
 	br_aes_big_cbcenc_init(&cbcenc_ctx, key, br_aes_big_BLOCK_SIZE);

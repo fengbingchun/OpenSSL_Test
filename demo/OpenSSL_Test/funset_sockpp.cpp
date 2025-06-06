@@ -22,7 +22,7 @@
 
 namespace {
 
-constexpr char* host{"127.0.0.1"};
+constexpr char host[]{"127.0.0.1"};
 constexpr in_port_t port{ 8888 };
 constexpr int len {64};
 

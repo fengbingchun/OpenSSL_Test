@@ -15,6 +15,11 @@
 #include <openssl/asn1.h>
 #include <openssl/asn1t.h>
 
+// libhv
+int test_libhv_http_client();
+int test_libhv_http_server();
+int test_libhv_http_client_diet();
+
 // sockpp
 int test_sockpp_client();
 int test_sockpp_server();

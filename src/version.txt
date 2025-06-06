@@ -77,3 +77,8 @@
 	commit: 3b19748
 	date: 2023.01.31
 	url: https://github.com/fpagliughi/sockpp
+11. libhv:
+	version: v1.3.3
+	commit: b7928e9
+	date: 2024.08.19
+	url: https://github.com/ithewei/libhv
