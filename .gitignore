@@ -20,3 +20,4 @@ src/sockpp/build
 src/sockpp/install
 .vscode
 prj/x86_x64/OpenSSL_Test/*.log
+testdata/result*

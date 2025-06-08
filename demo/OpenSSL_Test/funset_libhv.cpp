@@ -13,6 +13,7 @@
 #include <hv/HttpMessage.h>
 #include <hv/base64.h>
 
+// Blog: https://blog.csdn.net/fengbingchun/article/details/148513653
 int test_libhv_http_client_diet()
 {
 	constexpr char file_name[]{ "../../../testdata/diet.json" };
@@ -26,7 +27,7 @@ int test_libhv_http_client_diet()
 	constexpr int number{ 5 };
 	j["number"] = number;
 
-	const std::string server_url{ "http://127.0.0.1:8000" };
+	const std::string server_url{ "http://192.168.1.28:8000" };
 	HttpRequest request{};
 	request.method = HTTP_POST;
 	request.url = server_url + "/api/optimize";
@@ -37,9 +38,21 @@ int test_libhv_http_client_diet()
 	hv::HttpClient client{};
 	HttpResponse response{};
 	if (auto ret = client.send(&request, &response); ret == 0) {
-		std::cout << "successfully send: status code: " << response.status_code << ", status message: " << response.status_message() << std::endl;
-		std::cout << response.body << std::endl;
-		//auto j = hv::Json::parse(response.body);
+		if (response.status_code == HTTP_STATUS_OK) {
+			hv::Json j = hv::Json::parse(response.body);
+			std::cout << "result: " << j.dump() << std::endl;
+
+			constexpr char result_name[]{ "../../../testdata/result.json" };
+			std::ofstream out_file(result_name);
+			if (!out_file.is_open()) {
+				std::cerr << "Error: faild to open file: " << result_name << std::endl;
+				return -1;
+			}
+			out_file << j.dump(2);
+		} else {
+			std::cerr << "status code: " << response.status_code << ", status message: " << response.status_message() << ", body: " << response.body << std::endl;
+			return -1;
+		}
 	} else {
 		std::cerr << "Error: failed to send, error code: " << ret << std::endl;
 		return -1;
@@ -99,7 +112,7 @@ int test_libhv_http_client()
 
 	HttpResponse response2{};
 	if (auto ret = client.send(&request2, &response2); ret == 0) {
-		if (response2.status_code == HTTP_STATUS_OK) {// 200
+		if (response2.status_code == HTTP_STATUS_OK) { // 200
 			hv::Json j = hv::Json::parse(response2.body);
 			if (!j.contains("image_size") || !j.contains("image_time")) {
 				std::cerr << "Error: missing image_size or image_time: " << response2.body << std::endl;
